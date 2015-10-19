@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:binding="http://www.gueei.com/android-binding/"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:layout_marginBottom="15dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="15dp"
+    android:background="@color/white"
+    android:orientation="vertical" >
+<ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scrollbars="vertical" >
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <!-- 报修编号、用户性质 -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/lblCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="报修编号："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+
+            </TextView>
+
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="15dp"
+                android:ems="10"
+                android:enabled="false"
+                android:singleLine="true"
+                android:textSize="15sp"
+                binding:text="CUCODE" >
+
+                <requestFocus />
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户性质："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+            </TextView>
+
+            <Spinner
+                android:id="@+id/lstUsertype"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/black"
+                binding:itemSource="lstUsertype"
+                binding:itemTemplate="@layout/simple_spinner_dropdown_item"
+                binding:spinnerTemplate="@layout/simple_spinner" />
+
+        </LinearLayout>
+
+        <!-- 故障位置、故障设备 -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="故障位置："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+            </TextView>
+
+            <Spinner
+                android:id="@+id/lstSlipSpot"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/black"
+                binding:itemSource="lstSlipSpot"
+                binding:itemTemplate="@layout/simple_spinner_dropdown_item"
+                binding:spinnerTemplate="@layout/simple_spinner" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="故障设备："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+            </TextView>
+
+            <Spinner
+                android:id="@+id/lstSlipDep"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/black"
+                binding:itemSource="lstSlipDep"
+                binding:itemTemplate="@layout/simple_spinner_dropdown_item"
+                binding:spinnerTemplate="@layout/simple_spinner" />
+
+        </LinearLayout>
+
+        <!-- 详细 故障设备、故障原因 -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="详细故障设备："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+            </TextView>
+
+            <Spinner
+                android:id="@+id/lstSlipDetadep"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/black"
+                binding:itemSource="lstSlipDetadep"
+                binding:itemTemplate="@layout/simple_spinner_dropdown_item"
+                binding:spinnerTemplate="@layout/simple_spinner" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="故障原因："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+            </TextView>
+
+            <Spinner
+                android:id="@+id/lstSlipReason"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/black"
+                binding:itemSource="lstSlipReason"
+                binding:itemTemplate="@layout/simple_spinner_dropdown_item"
+                binding:spinnerTemplate="@layout/simple_spinner" />
+
+        </LinearLayout>
+
+        <!-- 处理结果、更换表型 -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="处理结果："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+            </TextView>
+
+            <Spinner
+                android:id="@+id/lstRepairResult"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/black"
+                binding:itemSource="lstRepairResult"
+                binding:itemTemplate="@layout/simple_spinner_dropdown_item"
+                binding:spinnerTemplate="@layout/simple_spinner" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="更换表型："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+            </TextView>
+
+            <Spinner
+                android:id="@+id/lstIcType"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/black"
+                binding:itemSource="lstIcType"
+                binding:itemTemplate="@layout/simple_spinner_dropdown_item"
+                binding:spinnerTemplate="@layout/simple_spinner" />
+
+        </LinearLayout>
+
+        <!-- 转移气量、是否收费 -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="转移气量："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/moveGas"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="15dp"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textSize="15sp"
+                binding:text="moveGas" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="是否收费："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+            </TextView>
+
+            <Spinner
+                android:id="@+id/lstIsMoney"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/black"
+                binding:itemSource="lstIsMoney"
+                binding:itemTemplate="@layout/simple_spinner_dropdown_item"
+                binding:spinnerTemplate="@layout/simple_spinner" />
+
+        </LinearLayout>
+
+        <!-- 收费金额、表底数 -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收费金额："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/money"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="15dp"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textSize="15sp"
+                binding:text="money" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="表底数："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/biaonum"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="15dp"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textSize="15sp"
+                binding:text="biaonum" />
+
+        </LinearLayout>
+
+        <!-- 备注 -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/biaonum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="备注："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/mark"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:singleLine="false"
+                android:textSize="15sp"
+                binding:text="mark" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="保存"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                binding:onClick="save" >
+
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>
