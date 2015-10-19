@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:binding="http://www.gueei.com/android-binding/"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical" >
+
+         <LinearLayout
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="用户性质："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+            </TextView>
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:enabled="false"
+                android:singleLine="true"
+                android:textSize="15sp"
+                binding:text="usertype" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="故障位置："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+
+            </TextView>
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:enabled="false"
+                android:singleLine="true"
+                android:textSize="15sp"
+                binding:text="slipSpot" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="right"
+                android:text="故障设备："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+
+            </TextView>
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:enabled="false"
+                android:singleLine="true"
+                android:textSize="15sp"
+                binding:text="slipDep" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="详细设备："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+
+            </TextView>
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:enabled="false"
+                android:singleLine="true"
+                android:textSize="15sp"
+                binding:text="slipDetadep" />
+        </LinearLayout>
+         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="故障原因："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+
+            </TextView>
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:enabled="false"
+                android:singleLine="true"
+                android:textSize="15sp"
+                binding:text="slipReason" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="处理结果："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+            </TextView>
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:enabled="false"
+                android:singleLine="true"
+                android:textSize="15sp"
+                binding:text="repairResult" />
+        </LinearLayout>
+         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="right"
+                android:text="更换表型："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+
+            </TextView>
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:enabled="false"
+                android:singleLine="true"
+                android:textSize="15sp"
+                binding:text="newIcType" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="right"
+                android:text="转移气量："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+
+            </TextView>
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:enabled="false"
+                android:singleLine="true"
+                android:textSize="15sp"
+                binding:text="moveGas" />
+        </LinearLayout>
+		<LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="是否收费："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+            </TextView>
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:enabled="false"
+                android:singleLine="true"
+                android:textSize="15sp"
+                binding:text="isMoney" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="收费金额："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+
+            </TextView>
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:enabled="false"
+                android:singleLine="true"
+                android:textSize="15sp"
+                binding:text="money" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="6dp"
+                android:text="表底数："
+                android:textColor="@color/black"
+                android:textSize="15sp" >
+
+            </TextView>
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:enabled="false"
+                android:singleLine="true"
+                android:textSize="15sp"
+                binding:text="biaonum" />
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="20dp"
+                android:text="删除"
+                android:textSize="15sp"
+                binding:onClick="onDelete" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
