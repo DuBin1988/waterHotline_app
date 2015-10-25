@@ -267,7 +267,7 @@ public class AlarmService extends AbstractService {
 			for(int i=0; i<rows.length(); i++)
 			{
 				JSONObject row = rows.getJSONObject(i);
-				String sql = "select ID from T_BX_REPAIR_ALL where f_downloadstatus='正常' and f_cucode=?";
+				String sql = "select ID from T_BX_REPAIR_ALL where f_downloadstatus ='正常' and f_cucode=?";
 				Cursor c = db.rawQuery(sql, new String[]{row.getString("f_cucode")});
 				if(c.moveToNext())
 				{

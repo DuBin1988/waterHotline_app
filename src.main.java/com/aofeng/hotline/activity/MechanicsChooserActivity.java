@@ -21,6 +21,7 @@ import com.aofeng.utils.Util;
 public class MechanicsChooserActivity extends BaseSetupActivity {
 	SetupModel model;
 	Button saveButton;
+	Button showhisButton;
 	Button setButton;
 	Button goUploadButton;
 	@Override
@@ -34,6 +35,13 @@ public class MechanicsChooserActivity extends BaseSetupActivity {
 		saveButton.setEnabled(false);
 		setButton.setEnabled(false);
 		goUploadButton.setEnabled(false);
+		showhisButton =(Button)findViewById(R.id.showhisButton);
+		showhisButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showhis();
+			}
+		});
 		saveButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -115,4 +123,14 @@ public class MechanicsChooserActivity extends BaseSetupActivity {
 //		alertDialog.show();
 //		
 //	}
+	
+	/**
+	 * 开始工作
+	 */
+		private void showhis() {
+			// 页面跳转
+			Intent intent = new Intent(this, showhisActivity.class);
+			startActivity(intent);
+		}
+		
 }

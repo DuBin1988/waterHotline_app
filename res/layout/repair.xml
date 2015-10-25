@@ -381,7 +381,7 @@
 
                 <EditText
                     android:layout_width="fill_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:enabled="false"
                     android:singleLine="false"
@@ -393,7 +393,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:visibility="gone" >
 
                 <TextView
                     android:layout_width="60dp"

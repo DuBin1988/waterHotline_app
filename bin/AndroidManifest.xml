@@ -40,6 +40,8 @@
     <activity android:name="com.aofeng.hotline.activity.SlipActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan|stateHidden"></activity>
    <!-- 批量上传 -->
    <activity android:name=".activity.UploadActivity" android:screenOrientation="portrait"></activity>
+   <!-- 查看历史工单 -->
+   <activity android:name=".activity.showhisActivity" android:screenOrientation="portrait"></activity>
 	<!-- 提取数据服务 -->
    	<service android:name=".service.AlarmService"/>
 </application>

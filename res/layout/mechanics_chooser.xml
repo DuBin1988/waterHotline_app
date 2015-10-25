@@ -54,6 +54,20 @@
                        android:layout_height="wrap_content"
                        android:text="开始工作"
                        android:textSize="15sp" />
+                   
+                   <Button
+                       android:id="@+id/showhisButton"
+                       android:layout_width="150dp"
+                       android:layout_height="50dp"
+                       android:layout_gravity="center_horizontal"
+                       android:layout_marginTop="10dp"
+                       android:background="@drawable/showhis_btnxml" />
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="查看历史工单"
+                       android:textSize="15sp" />
 
                </LinearLayout>
                

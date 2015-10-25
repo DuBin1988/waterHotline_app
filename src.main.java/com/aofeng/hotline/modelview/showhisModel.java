@@ -22,23 +22,24 @@ import com.aofeng.hotline.R;
 import com.aofeng.hotline.activity.LoginActivity;
 import com.aofeng.hotline.activity.MainActivity;
 import com.aofeng.hotline.activity.MechanicsChooserActivity;
+import com.aofeng.hotline.activity.showhisActivity;
 import com.aofeng.hotline.db.DBAdapter;
 import com.aofeng.hotline.model.RepairSlipRowModel;
+import com.aofeng.hotline.model.ShowhisRowModel;
 import com.aofeng.hotline.service.AlarmService;
 import com.aofeng.utils.Util;
 
-public class MainModel {
-	public MainActivity mContext;
+public class showhisModel {
+	public showhisActivity mContext;
 	private int idx;
 
 	// 维修列表
-	public ArrayListObservable<RepairSlipRowModel>lstRepairs = new ArrayListObservable<RepairSlipRowModel>(
-			RepairSlipRowModel.class);
+	public ArrayListObservable<ShowhisRowModel>lstRepairs = new ArrayListObservable<ShowhisRowModel>(ShowhisRowModel.class);
 //	// 抢修列表
 //	public ArrayListObservable<RepairSlipRowModel>lstEmergencies = new ArrayListObservable<RepairSlipRowModel>(
 //			RepairSlipRowModel.class);
 	
-	public MainModel(MainActivity mContext) {
+	public showhisModel(showhisActivity mContext) {
 		this.mContext = mContext;
 	}
 //	//维修
@@ -156,6 +157,7 @@ public class MainModel {
 	
 
 	public void fillItem() {
+		/*
 		//if the server is still waiting to be bound
 		try
 		{
@@ -177,7 +179,8 @@ public class MainModel {
 		{
 			Toast.makeText(mContext, "下载单子出错。", Toast.LENGTH_LONG).show();
 			return;
-		}
+		} */
+		FillEmergencyModel();
 	}
 
 	/**
@@ -212,13 +215,13 @@ public class MainModel {
 		try
 		{
 			db = mContext.openOrCreateDatabase(Util.getDBName(mContext), Context.MODE_PRIVATE, null);
-			String sql = "select * from T_BX_REPAIR_ALL where (CAST(MUTE as INTEGER) &24)=0 and completion not in ('已完成','不具备通气') order by f_downloadstatus";
+			String sql = "select * from T_BX_REPAIR_ALL where (CAST(MUTE as INTEGER) &24)=0 and completion in ('已完成','不具备通气') order by f_cucode desc";
 			Cursor c = db.rawQuery(sql, null);
 			int i=c.getCount();
 			while(c.moveToNext())
 			{
 				String s2=c.getString(c.getColumnIndex("completion"));
-				RepairSlipRowModel model = new RepairSlipRowModel(this);
+				ShowhisRowModel model = new ShowhisRowModel(this);
 				model.ID = c.getString(c.getColumnIndex("ID"));
 				model.setMute(c.getString(c.getColumnIndex("MUTE")));
 				model.USERID=c.getString(c.getColumnIndex("f_userid"));//用户ID
@@ -249,6 +252,9 @@ public class MainModel {
 				model.completion=c.getString(c.getColumnIndex("completion"));	//完成状态
 				model.f_downloadstatus.set(c.getString(c.getColumnIndex("f_downloadstatus")));	//工单状态
 				model.f_workingdays.set(c.getString(c.getColumnIndex("f_workingdays")));	//工单状态
+				model.finishtime.set("   完成时间: "+c.getString(c.getColumnIndex("finishtime")));	//完成时间
+				model.inshi.set(c.getString(c.getColumnIndex("inshi")));	//是否入户
+				
 				if("正常".equals(model.f_downloadstatus.get()))
 					model.gongdanstatus.set(true);
 				else

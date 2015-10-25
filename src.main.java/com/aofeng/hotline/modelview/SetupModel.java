@@ -592,6 +592,7 @@ private void createTables(SQLiteDatabase db) {
 				+  ",f_smwxjl TEXT(200)"//上门维修记录
 				+  ",f_downloadstatus TEXT(200)"// 工单状态
 				+  ",inshi TEXT(200)"//上门维修记录
+				+  ",f_uploadstatus TEXT(200)"//上传标记
 				//+  ",servercheck TEXT(200)"//上门维修记录
 				//+  ",shul TEXT(200)"//上门维修记录
 				+  ",f_workingdays TEXT(200)"// 工作时日

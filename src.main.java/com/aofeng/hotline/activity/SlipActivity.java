@@ -47,10 +47,21 @@ public class SlipActivity extends BindingActivity {
 	private SlipActivity sa=this;
 	private String shul ="";
 	private String servercheck ="";
+	private Bundle bundle=null;
+	private String gdstatus=""; //判断是，工作，还是 查看工单
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setAndBindRootView(R.layout.repair, this);
+		bundle = getIntent().getExtras();
+		gdstatus=bundle.getString("gdstatus");
+		if("ischeck".equals(gdstatus)){
+			if("入户".equals(bundle.getString("inshi")))
+				((Spinner)findViewById(R.id.inshi)).setSelection(0);
+			else
+				((Spinner)findViewById(R.id.inshi)).setSelection(1);
+		}
+		//sa.inshi.set(bundle.getString("gdstatus"));
 		Spinner inshiListener =(Spinner)findViewById(R.id.inshi);
 		inshiListener.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
@@ -84,7 +95,6 @@ public class SlipActivity extends BindingActivity {
 	protected void onResume() {
 		super.onResume();
 		FillBindingList();
-		Bundle bundle = getIntent().getExtras();
 		View(bundle);
 	}
 
@@ -96,10 +106,13 @@ public class SlipActivity extends BindingActivity {
 			Toast.makeText(this, "请等待操作完成。", Toast.LENGTH_SHORT).show();
 		else
 		{
-			
 			this.finish();
 			Intent intent = new Intent();
-			intent.setClass(this, MainActivity.class);
+			if("ischeck".equals(gdstatus)) //返回之前的入口 
+				intent.setClass(this, showhisActivity.class);
+			else
+				intent.setClass(this, MainActivity.class);
+			//intent.setClass(this, MainActivity.class);
 			startActivity(intent);
 			super.onBackPressed();
 		}
@@ -132,6 +145,7 @@ public class SlipActivity extends BindingActivity {
 		f_downloadstatus.set(bundle.getString("f_downloadstatus"));
 		if("工单已撤销".equals(f_downloadstatus.get())){
 			findViewById(R.id.button2).setVisibility(android.view.View.VISIBLE);
+			findViewById(R.id.button1).setVisibility(android.view.View.GONE);
 			//findViewById(R.id.Button02).setVisibility(android.view.View.GONE);
 			//findViewById(R.id.button1).setVisibility(android.view.View.GONE);
 		}else{
@@ -147,6 +161,12 @@ public class SlipActivity extends BindingActivity {
 		Util.SelectItem(bundle.getString("completion"), this.completion, ((Spinner)findViewById(R.id.f_completion)));//设置
 		surplus.set(bundle.getString("surplus"));
 		reading.set(bundle.getString("lastrecord"));
+		if("ischeck".equals(gdstatus)){ //返回之前的入口 
+			findViewById(R.id.Button02).setVisibility(android.view.View.GONE);
+			findViewById(R.id.button2).setVisibility(android.view.View.GONE);
+			findViewById(R.id.call).setVisibility(android.view.View.GONE);
+			findViewById(R.id.button1).setVisibility(android.view.View.GONE);
+		}
 	}
 
 	
@@ -248,14 +268,17 @@ public class SlipActivity extends BindingActivity {
 			super.handleMessage(msg);
 			if(msg.what==1){
 				Toast.makeText(sa, "上传维修记录成功", Toast.LENGTH_SHORT).show();
-				if(sa.completion.get(((Spinner)findViewById(R.id.f_completion)).getSelectedItemPosition()).equals("已完成") || sa.completion.get(((Spinner)findViewById(R.id.f_completion)).getSelectedItemPosition()).equals("不具备通气")){
+				/*if(sa.completion.get(((Spinner)findViewById(R.id.f_completion)).getSelectedItemPosition()).equals("已完成") || sa.completion.get(((Spinner)findViewById(R.id.f_completion)).getSelectedItemPosition()).equals("不具备通气")){
 					deleteAndResult(openOrCreateDatabase(Util.getDBName(sa), Context.MODE_PRIVATE, null), CUCODE.get());
 				}else{
 					localSave();
-				}
+				}*/
+				f_uploadstatus.set("true");
+				localSave();
 				onBackPressed();
 			} else if(msg.what==0){
 				if(localSave()){
+					f_uploadstatus.set("false");
 					Toast.makeText(sa, "本地保存维修记录成功", Toast.LENGTH_SHORT).show();
 					onBackPressed();
 				}else{
@@ -280,6 +303,7 @@ public class SlipActivity extends BindingActivity {
 					"f_lastrecord=?," +//表读数
 					"surplus=?," +//补气量
 					"completion=?, " +//
+					"f_uploadstatus=?, " +//
 					"inshi=? " +//
 					//"servercheck=?, " +//
 					//"shul=? " +//
@@ -292,6 +316,7 @@ public class SlipActivity extends BindingActivity {
 										reading.get(),//表读数
 										surplus.get(),//补气量
 										this.completion.get(((Spinner)findViewById(R.id.f_completion)).getSelectedItemPosition()),//完成状态
+										this.f_uploadstatus.get(),//上传标记
 										this.inshi.get(((Spinner)findViewById(R.id.inshi)).getSelectedItemPosition()),//是否入户
 										//this.servercheck,//是否入户
 										//this.shul,//是否入户
@@ -473,6 +498,8 @@ public class SlipActivity extends BindingActivity {
 	public ArrayListObservable<String> inshi = new ArrayListObservable<String>(String.class, new String[]{"入户", "未入户"});//完成情况
 	
 	public StringObservable f_workingdays = new StringObservable("");
+
+	public StringObservable f_uploadstatus = new StringObservable("false");
 	
 	/*  -   
 	public BooleanObservable f_openstopper = new BooleanObservable(false);

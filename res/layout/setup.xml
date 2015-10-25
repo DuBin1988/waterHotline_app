@@ -17,6 +17,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/NoticeTopTitleSize" />
 
+    
     <LinearLayout
         android:layout_width="200dp"
         android:layout_height="wrap_content"

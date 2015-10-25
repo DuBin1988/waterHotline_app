@@ -15,7 +15,9 @@ import gueei.binding.Command;
 import gueei.binding.collections.ArrayListObservable;
 
 import com.aofeng.hotline.activity.MainActivity;
+import com.aofeng.hotline.activity.SlipActivity;
 import com.aofeng.hotline.model.RepairSlipRowModel;
+import com.aofeng.hotline.model.ShowhisRowModel;
 import com.aofeng.hotline.model.UploadRowModel;
 import com.aofeng.utils.Util;
 import com.aofeng.utils.Vault;
@@ -25,8 +27,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.Toast;
 
 public class UploadModel {
@@ -50,7 +54,7 @@ public class UploadModel {
 		try
 		{	
 			db = mContext.openOrCreateDatabase(Util.getDBName(mContext), Context.MODE_PRIVATE, null);
-			String sql = "select * from T_BX_REPAIR_ALL where completion in ('已完成','不具备通气')";
+			String sql = "select * from T_BX_REPAIR_ALL where completion in ('已完成','不具备通气') and f_uploadstatus ='false'";
 			Cursor c = db.rawQuery(sql, null);
 			while(c.moveToNext())
 			{
@@ -142,12 +146,16 @@ public class UploadModel {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			if(msg.what==1){
-				okAndDelete(msg.obj.toString());
+				//okAndDelete(msg.obj.toString());
+				uploadstatus(msg.obj.toString());
+				Toast.makeText(mContext, "上传成功", Toast.LENGTH_SHORT).show();
 			}else {
 				Toast.makeText(mContext, "上传失败", Toast.LENGTH_SHORT).show();
 			}
 		}
 	};
+	
+	//删除上传后的数据
 	private void okAndDelete(String str){
 		SQLiteDatabase db =null;
 		SQLiteDatabase db2=null;
@@ -159,14 +167,14 @@ public class UploadModel {
 			Toast.makeText(mContext, "服务器返回错误", Toast.LENGTH_SHORT).show();
 			return;
 		}
-			for(int i=0;i<arr.length;){
+		for(int i=0;i<arr.length;){
 				if("ok".equals(arr[i+1])){
 					db2.execSQL("delete from T_BX_REPAIR_ALL where f_cucode="+arr[i]);
 					db.execSQL("delete from T_BX_REPAIR_ALL where f_cucode="+arr[i] + " and completion in ('已完成','不具备通气')");
 					i+=2;
 				}
-			}
-			Toast.makeText(mContext, "上传成功", Toast.LENGTH_SHORT).show();
+		}
+		//Toast.makeText(mContext, "上传成功", Toast.LENGTH_SHORT).show();
 		} catch(Exception e){
 			e.printStackTrace();
 		}finally{
@@ -175,4 +183,42 @@ public class UploadModel {
 			showNotUpload();
 		}
 	}
+	
+	//更新上传标记信息
+	private void uploadstatus(String str){
+		SQLiteDatabase db =null;
+		SQLiteDatabase db2=null;
+		try{
+		db = mContext.openOrCreateDatabase(Util.getDBName(mContext), Context.MODE_PRIVATE, null);
+		db2 = mContext.openOrCreateDatabase(Util.getDBName2(mContext), Context.MODE_PRIVATE, null);
+		String arr[]=str.split(",");
+		if(arr.length%2==1){
+			Toast.makeText(mContext, "服务器返回错误", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		for(int i=0;i<arr.length;){
+				if("ok".equals(arr[i+1])){
+					db2.execSQL("update T_BX_REPAIR_ALL set f_uploadstatus='true' where f_cucode="+arr[i]);
+					db.execSQL("update T_BX_REPAIR_ALL set f_uploadstatus='true' where f_cucode="+arr[i]);
+					i+=2;
+				}
+		}
+		//Toast.makeText(mContext, "上传成功", Toast.LENGTH_SHORT).show();
+		} catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			db.close();
+			db2.close();
+			showNotUpload();
+		}
+	}
+	
+	public Command DetailCmd = new Command() {
+		@Override
+		public void Invoke(View arg0, Object... arg1) {
+			
+		}
+		
+	};
+	
 }

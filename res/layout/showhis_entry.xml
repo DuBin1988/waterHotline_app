@@ -3,7 +3,8 @@
     xmlns:binding="http://www.gueei.com/android-binding/"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    binding:onClick="DetailCmd" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -189,8 +190,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="2dp" 
-				binding:visibility="gongdanstatus"
-				binding:onClick="DetailCmd" >
+				binding:visibility="gongdanstatus" >
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -216,7 +216,7 @@
                     android:layout_marginRight="6dp"
                     android:text="拨号"
                     binding:onClick="call"
-					binding:visibility="gongdanstatus"/>
+					binding:visibility="NOT(gongdanstatus)"/>
             
             <Button
                     android:id="@+id/qiangdan"
@@ -227,6 +227,14 @@
                     android:text="抢单"
                     binding:onClick="qiangdan"
 					binding:visibility="NOT(gongdanstatus)" />
+            
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                binding:text="finishtime"
+                android:textSize="12sp" />
             
         </LinearLayout>
 

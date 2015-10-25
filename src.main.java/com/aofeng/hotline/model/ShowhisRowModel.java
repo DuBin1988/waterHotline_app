@@ -34,6 +34,7 @@ import com.aofeng.hotline.activity.MechanicsChooserActivity;
 import com.aofeng.hotline.activity.SlipActivity;
 import com.aofeng.hotline.modelview.LoginModel;
 import com.aofeng.hotline.modelview.MainModel;
+import com.aofeng.hotline.modelview.showhisModel;
 import com.aofeng.hotline.service.AlarmService;
 import com.aofeng.utils.Util;
 import com.aofeng.utils.Vault;
@@ -43,10 +44,10 @@ import com.aofeng.utils.Vault;
  * @author lgy
  *
  */
-public class RepairSlipRowModel {
-	public MainModel model;
+public class ShowhisRowModel {
+	public showhisModel model;
 	
-	public RepairSlipRowModel(MainModel model)
+	public ShowhisRowModel(showhisModel model)
 	{
 		this.model = model;
 	}
@@ -92,7 +93,8 @@ public class RepairSlipRowModel {
 	public StringObservable gasmeteraccomodations = new StringObservable("");//表底数
 	public StringObservable f_downloadstatus = new StringObservable("");//表底数
 	public StringObservable f_workingdays = new StringObservable("");//表底数
-	
+	public StringObservable finishtime = new StringObservable("");//完成时间
+	public StringObservable inshi = new StringObservable("");//是否入户
 	
 	public StringObservable smwxjl = new StringObservable("");//维修记录
 	
@@ -136,7 +138,9 @@ public class RepairSlipRowModel {
 			bundle.putString("completion", completion);
 			bundle.putString("f_downloadstatus", f_downloadstatus.get());
 			bundle.putString("f_workingdays", f_workingdays.get());
-			bundle.putString("gdstatus", "isdo"); //工单传入过去的状态
+			bundle.putString("finishtime", finishtime.get());
+			bundle.putString("gdstatus", "ischeck"); //工单传入过去的状态
+			bundle.putString("inshi", inshi.get()); //是否入户
 			
 			setMute();//单条静音
 			intent.setClass(model.mContext, SlipActivity.class);
@@ -150,7 +154,7 @@ public class RepairSlipRowModel {
 						Message msg = new Message();
 						try {
 							// HttpGet getMethod = new HttpGet(Vault.PHONE_URL+"upload/"+CUCODE.get()+"/'"+smwxjl.get()+"'/"+ProduceTime()+"/"+pinpai+"/"+fangxiang+"/"+reading.get()+"/"+surplus.get()+"/"+status);						
-							HttpGet getMethod = new HttpGet(Vault.PHONE_URL+"checkState/"+CUCODE.get().trim().replaceAll(" ", "%20")+"/"+Util.getSharedPreference(RepairSlipRowModel.this.model.mContext, Vault.CHECKER_NAME));
+							HttpGet getMethod = new HttpGet(Vault.PHONE_URL+"checkState/"+CUCODE.get().trim().replaceAll(" ", "%20")+"/"+Util.getSharedPreference(ShowhisRowModel.this.model.mContext, Vault.CHECKER_NAME));
 							HttpClient httpClient = new DefaultHttpClient();
 							HttpResponse response = httpClient.execute(getMethod);
 							int code = response.getStatusLine().getStatusCode();
@@ -174,6 +178,7 @@ public class RepairSlipRowModel {
 		}
 		
 	};
+	
 	private void setMute() {
 		SQLiteDatabase db = null;
 		try
@@ -184,7 +189,8 @@ public class RepairSlipRowModel {
 			c=db.rawQuery("select * from T_BX_REPAIR_ALL where MUTE='0'", null);
 			int i=c.getCount();
 			if(c.getCount()==0){
-				this.model.mContext.sendMessageToService(AlarmService.MSG_FROM_ACTIVITY_MUTE);
+				// 不需要响铃操作
+				//this.model.mContext.sendMessageToService(AlarmService.MSG_FROM_ACTIVITY_MUTE);
 			}
 		}
 		catch(Exception e)
@@ -267,7 +273,7 @@ public class RepairSlipRowModel {
 							Message msg = new Message();
 							try {
 								// HttpGet getMethod = new HttpGet(Vault.PHONE_URL+"upload/"+CUCODE.get()+"/'"+smwxjl.get()+"'/"+ProduceTime()+"/"+pinpai+"/"+fangxiang+"/"+reading.get()+"/"+surplus.get()+"/"+status);						
-								HttpGet getMethod = new HttpGet(Vault.PHONE_URL+"qiangdan/"+CUCODE.get().trim().replaceAll(" ", "%20")+"/"+Util.getSharedPreference(RepairSlipRowModel.this.model.mContext, Vault.CHECKER_NAME));
+								HttpGet getMethod = new HttpGet(Vault.PHONE_URL+"qiangdan/"+CUCODE.get().trim().replaceAll(" ", "%20")+"/"+Util.getSharedPreference(ShowhisRowModel.this.model.mContext, Vault.CHECKER_NAME));
 								HttpClient httpClient = new DefaultHttpClient();
 								HttpResponse response = httpClient.execute(getMethod);
 								int code = response.getStatusLine().getStatusCode();
