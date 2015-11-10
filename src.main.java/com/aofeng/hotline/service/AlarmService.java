@@ -32,6 +32,8 @@ public class AlarmService extends AbstractService {
 	boolean shouldStop;
 	Thread th;
 	boolean all=true;
+	GeoService geoService;
+	Thread geoThread;
 
 	@Override
 	public void onStartService() {
@@ -44,8 +46,11 @@ public class AlarmService extends AbstractService {
 			}
 		});
 		th.start();
+		geoService = new GeoService();
+		geoThread = geoService.init(this);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onStopService() {
 	       if(player != null)
@@ -54,9 +59,13 @@ public class AlarmService extends AbstractService {
 	    	   player = null;
 	       }
 	       shouldStop = true;
+	       if(geoService != null)
+	    	   geoService.shouldStop = true;
 	       try {
 	    	th.interrupt();  //dont sleep
 			th.join();
+			if(geoThread != null)
+				geoThread.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
