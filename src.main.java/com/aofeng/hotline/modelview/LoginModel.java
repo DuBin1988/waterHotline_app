@@ -64,7 +64,7 @@ public class LoginModel {
 				return;
 			}
 			// 登录按钮设置成不可用
-			((Button) mContext.findViewById(R.id.button1)).setEnabled(false);
+			((Button) mContext.findViewById(R.id.buttons)).setEnabled(false);
 
 			Thread th = new Thread(new Runnable() {
 				@Override
@@ -119,10 +119,10 @@ public class LoginModel {
 					CHECKER_NAME = user.getString("col1");
 					STATION_NAME = user.getString("col2");
 					STATION_ID = user.getString("col3");
-				} catch (JSONException e) {
+				} catch (JSONException e){
 					e.printStackTrace();
 					Toast.makeText(mContext, "登录失败。请检查用户名和密码是否正确。", Toast.LENGTH_SHORT).show();
-					((Button) mContext.findViewById(R.id.button1)).setEnabled(true);
+					((Button) mContext.findViewById(R.id.buttons)).setEnabled(true);
 					return;
 				}
 				//如果登录名不同
@@ -173,7 +173,7 @@ public class LoginModel {
 					pd.dismiss();
 				Toast.makeText(mContext, "登录失败。请检查是否联网并确认用户名和密码是否正确。", Toast.LENGTH_SHORT)
 						.show();
-				((Button) mContext.findViewById(R.id.button1)).setEnabled(true);
+				((Button) mContext.findViewById(R.id.buttons)).setEnabled(true);
 			}
 		}
 	};

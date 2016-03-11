@@ -70,35 +70,45 @@ public class RepairSlipRowModel {
 	public BooleanObservable INSPECTED = new BooleanObservable(false); 
 	public BooleanObservable UPLOADED = new BooleanObservable(false); 
 	
-	public String USERID;//用户ID
+	//public String USERID;//用户ID
 	public StringObservable USERNAME = new StringObservable("");//用户姓名 
 	public StringObservable USERADDRESS = new StringObservable("");//用户地址 
 	public StringObservable GASUSERTYPE = new StringObservable("");//用户类别
+	public StringObservable CARDID = new StringObservable("");//用户类别
 	public StringObservable LINKTYPE = new StringObservable("");//用户电话
-	
+	public StringObservable USERID = new StringObservable("");//用户电话
 	public StringObservable SENDER = new StringObservable("");//派单人
 	public StringObservable CUCODE = new StringObservable("");//报修编号
+	public StringObservable LAIYUAN = new StringObservable("");//信息来源
 	public StringObservable REPAIRTYPE = new StringObservable("");//报修类型
 	public StringObservable PHONE = new StringObservable("");//来电号码
 	public StringObservable SENDTIME = new StringObservable("");//派单时间
+	public StringObservable JIBIE = new StringObservable("");//派单时间
 	public StringObservable REPAIRREASON = new StringObservable("");//来电内容
 	public StringObservable STOPREMARK = new StringObservable("");//备注
+	public StringObservable METERNUMBER = new StringObservable("");//备注
+	public StringObservable JIEDANDATE = new StringObservable("");//备注
+	public StringObservable JIEDANTIME = new StringObservable("");//备注
+	public StringObservable FUZEREN = new StringObservable("");//备注
+	public StringObservable WANGONGRIQI = new StringObservable("");//备注
+	public StringObservable WANGGONG = new StringObservable("");//备注
 	
-	public StringObservable METERNUMBER = new StringObservable("");//表号
-	public StringObservable METERTYPE = new StringObservable("");//气表型号
-	public StringObservable LEFTRIGHTWATCH = new StringObservable("");//左右表
-	public String lastrecord = "";//表读数
+//	public StringObservable METERNUMBER = new StringObservable("");//表号
+//	public StringObservable METERTYPE = new StringObservable("");//气表型号
+//	public StringObservable LEFTRIGHTWATCH = new StringObservable("");//左右表
+//	public String lastrecord = "";//表读数
 	public StringObservable metergasnums = new StringObservable("");//累计购气量
 	public StringObservable gasmeteraccomodations = new StringObservable("");//表底数
 	public StringObservable f_downloadstatus = new StringObservable("");//表底数
-	public StringObservable f_workingdays = new StringObservable("");//表底数
+	public StringObservable f_shixian = new StringObservable("");//表底数
 	
 	
 	public StringObservable smwxjl = new StringObservable("");//维修记录
+	public StringObservable JIEGUO = new StringObservable("");//维修记录
 	
 	public String gaswatchbrand = "";//气表品牌
-	public String surplus = "";//补气量
-	public String completion = "";//完成状态
+	//public String surplus = "";//补气量
+	public String f_havacomplete = "";//完成状态
 	
 	public Command DetailCmd = new Command() {
 		@Override
@@ -106,36 +116,43 @@ public class RepairSlipRowModel {
 			Intent intent = new Intent();
 			Bundle bundle = new Bundle();
 			bundle.putString("ID", ID);
-			bundle.putString("USERID", USERID);
+			bundle.putString("USERID", USERID.get());
 			bundle.putString("USERNAME", USERNAME.get());
 			bundle.putString("USERADDRESS", USERADDRESS.get());
 			bundle.putString("GASUSERTYPE", GASUSERTYPE.get());
+			bundle.putString("CARDID", CARDID.get());
 			bundle.putString("LINKTYPE", LINKTYPE.get());
-			
 			bundle.putString("SENDER", SENDER.get());
 			bundle.putString("CUCODE", CUCODE.get());
+			bundle.putString("LAIYUAN", LAIYUAN.get());
 			bundle.putString("REPAIRTYPE", REPAIRTYPE.get());
 			bundle.putString("PHONE", PHONE.get());
 			bundle.putString("SENDTIME", SENDTIME.get());
 			bundle.putString("REPAIRREASON", REPAIRREASON.get());
 			bundle.putString("STOPREMARK", STOPREMARK.get());
-			
 			bundle.putString("METERNUMBER", METERNUMBER.get());
-			bundle.putString("METERTYPE", METERTYPE.get());
-			bundle.putString("LEFTRIGHTWATCH", LEFTRIGHTWATCH.get());
-			bundle.putString("lastrecord", lastrecord);
+			bundle.putString("JIEDANDATE", JIEDANDATE.get());
+			bundle.putString("JIEDANTIME", JIEDANTIME.get());
+			bundle.putString("FUZEREN",FUZEREN.get());
+			bundle.putString("WANGONGRIQI",WANGONGRIQI.get());
+			bundle.putString("WANGGONG",WANGGONG.get());
+	//		bundle.putString("METERNUMBER", METERNUMBER.get());
+	//		bundle.putString("METERTYPE", METERTYPE.get());
+	//		bundle.putString("LEFTRIGHTWATCH", LEFTRIGHTWATCH.get());
+		//	bundle.putString("lastrecord", lastrecord);
 			bundle.putString("metergasnums", metergasnums.get());
 			bundle.putString("gasmeteraccomodations", gasmeteraccomodations.get());
 //			bundle.putString("f_downloadstatus", f_downloadstatus.get());
 //			bundle.putString("f_workingdays", f_workingdays.get());
 			
 			bundle.putString("smwxjl", smwxjl.get());
+			bundle.putString("JIEGUO", JIEGUO.get());
 			
 			bundle.putString("gaswatchbrand", gaswatchbrand);
-			bundle.putString("surplus", surplus);
-			bundle.putString("completion", completion);
+		//	bundle.putString("surplus", surplus);
+			bundle.putString("f_havacomplete", f_havacomplete);
 			bundle.putString("f_downloadstatus", f_downloadstatus.get());
-			bundle.putString("f_workingdays", f_workingdays.get());
+			bundle.putString("f_shixian", f_shixian.get());
 			bundle.putString("gdstatus", "isdo"); //工单传入过去的状态
 			
 			setMute();//单条静音

@@ -68,18 +68,19 @@ public class SlipActivity extends BindingActivity {
 			public void onItemSelected(AdapterView<?> arg0,
 					android.view.View arg1, int arg2, long arg3) {
 				final String inshi1=sa.inshi.get(((Spinner)findViewById(R.id.inshi)).getSelectedItemPosition());
-				surplus.set("0");
-				reading.set("0");
+			//	surplus.set("0");
+			//	reading.set("0");
 				smwxjl.set("-");
-				((Spinner)findViewById(R.id.f_rqbiaoxing)).setSelection(0);
+				JIEGUO.set("-");
+			//	((Spinner)findViewById(R.id.f_rqbiaoxing)).setSelection(0);
 				((Spinner)findViewById(R.id.f_completion)).setSelection(1);
 				if("入户".equals(inshi1)){
 					((LinearLayout)findViewById(R.id.inshiline)).setVisibility(android.view.View.VISIBLE);
-					((Spinner)findViewById(R.id.f_gas_meter_brand)).setSelection(1);
+					//((Spinner)findViewById(R.id.f_gas_meter_brand)).setSelection(1);
 					
 				}else{
 					((LinearLayout)findViewById(R.id.inshiline)).setVisibility(android.view.View.GONE);
-					((Spinner)findViewById(R.id.f_gas_meter_brand)).setSelection(0);
+					//((Spinner)findViewById(R.id.f_gas_meter_brand)).setSelection(0);
 					
 				}
 				
@@ -94,7 +95,7 @@ public class SlipActivity extends BindingActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		FillBindingList();
+	//	FillBindingList();
 		View(bundle);
 	}
 
@@ -121,12 +122,13 @@ public class SlipActivity extends BindingActivity {
 
 	private void View(Bundle bundle) {
 		ID=bundle.getString("ID");
-		USERID=bundle.getString("USERID");
+		USERID.set(bundle.getString("USERID"));
 		USERNAME.set(bundle.getString("USERNAME"));
 		USERADDRESS.set(bundle.getString("USERADDRESS"));
 		GASUSERTYPE.set(bundle.getString("GASUSERTYPE"));
+		CARDID.set(bundle.getString("CARDID"));
 		LINKTYPE.set(bundle.getString("LINKTYPE"));
-		
+		LAIYUAN.set(bundle.getString("LAIYUAN"));
 		SENDER.set(bundle.getString("SENDER"));
 		SENDTIME.set(bundle.getString("SENDTIME"));
 		CUCODE.set(bundle.getString("CUCODE"));
@@ -134,14 +136,20 @@ public class SlipActivity extends BindingActivity {
 		REPAIRREASON.set(bundle.getString("REPAIRREASON"));
 		PHONE.set(bundle.getString("PHONE"));
 		STOPREMARK.set(bundle.getString("STOPREMARK"));
-		
 		METERNUMBER.set(bundle.getString("METERNUMBER"));
-		METERTYPE.set(bundle.getString("METERTYPE"));
-		LEFTRIGHTWATCH.set(bundle.getString("LEFTRIGHTWATCH"));
-		lastrecord.set(bundle.getString("lastrecord"));
-		metergasnums.set(bundle.getString("metergasnums"));
-		gasmeteraccomodations.set(bundle.getString("gasmeteraccomodations"));
-		f_workingdays.set(bundle.getString("f_workingdays"));
+		JIEDANDATE.set(bundle.getString("JIEDANDATE"));
+		JIEDANTIME.set(bundle.getString("JIEDANTIME"));
+		FUZEREN.set(bundle.getString("FUZEREN"));
+		WANGONGRIQI.set(bundle.getString("WANGONGRIQI"));
+		WANGGONG.set(bundle.getString("WANGGONG"));
+		
+	//	METERNUMBER.set(bundle.getString("METERNUMBER"));
+	//	METERTYPE.set(bundle.getString("METERTYPE"));
+	//	LEFTRIGHTWATCH.set(bundle.getString("LEFTRIGHTWATCH"));
+	//	lastrecord.set(bundle.getString("lastrecord"));
+	//	metergasnums.set(bundle.getString("metergasnums"));
+	//	gasmeteraccomodations.set(bundle.getString("gasmeteraccomodations"));
+		f_shixian.set(bundle.getString("f_shixian"));
 		f_downloadstatus.set(bundle.getString("f_downloadstatus"));
 		if("工单已撤销".equals(f_downloadstatus.get())){
 			findViewById(R.id.button2).setVisibility(android.view.View.VISIBLE);
@@ -155,12 +163,13 @@ public class SlipActivity extends BindingActivity {
 		}
 		
 		smwxjl.set(bundle.getString("smwxjl"));
+		JIEGUO.set(bundle.getString("JIEGUO"));
 		
-		Util.SelectItem(bundle.getString("gaswatchbrand"), this.gas_meter_brand, ((Spinner)findViewById(R.id.f_gas_meter_brand)));//设置
-		Util.SelectItem(bundle.getString("LEFTRIGHTWATCH"), this.rqbiaoxing, ((Spinner)findViewById(R.id.f_rqbiaoxing)));//设置
+	//	Util.SelectItem(bundle.getString("gaswatchbrand"), this.gas_meter_brand, ((Spinner)findViewById(R.id.f_gas_meter_brand)));//设置
+	//	Util.SelectItem(bundle.getString("LEFTRIGHTWATCH"), this.rqbiaoxing, ((Spinner)findViewById(R.id.f_rqbiaoxing)));//设置
 		Util.SelectItem(bundle.getString("completion"), this.completion, ((Spinner)findViewById(R.id.f_completion)));//设置
-		surplus.set(bundle.getString("surplus"));
-		reading.set(bundle.getString("lastrecord"));
+	//	surplus.set(bundle.getString("surplus"));
+		//reading.set(bundle.getString("lastrecord"));
 		if("ischeck".equals(gdstatus)){ //返回之前的入口 
 			findViewById(R.id.Button02).setVisibility(android.view.View.GONE);
 			findViewById(R.id.button2).setVisibility(android.view.View.GONE);
@@ -222,18 +231,19 @@ public class SlipActivity extends BindingActivity {
 	 */
 	public Command upload = new Command(){
 		@Override//resultState
-		public void Invoke(android.view.View arg0, Object... arg1) {
-			final String pinpai=sa.gas_meter_brand.get(((Spinner)findViewById(R.id.f_gas_meter_brand)).getSelectedItemPosition());
-			final String fangxiang=sa.rqbiaoxing.get(((Spinner)findViewById(R.id.f_rqbiaoxing)).getSelectedItemPosition());
+		public void Invoke(android.view.View arg0, Object... arg1){
+		//	final String pinpai=sa.gas_meter_brand.get(((Spinner)findViewById(R.id.f_gas_meter_brand)).getSelectedItemPosition());
+		//	final String fangxiang=sa.rqbiaoxing.get(((Spinner)findViewById(R.id.f_rqbiaoxing)).getSelectedItemPosition());
 			final String status=sa.completion.get(((Spinner)findViewById(R.id.f_completion)).getSelectedItemPosition());
 			final String inshi1=sa.inshi.get(((Spinner)findViewById(R.id.inshi)).getSelectedItemPosition());
-			if("入户".equals(inshi1)){
-				if(Check(smwxjl)||pinpai==null||pinpai==""||reading.get()==null||reading.get()==""||surplus.get()==null||surplus.get()==""){
-					Toast.makeText(sa, "左右表、表读数、和补气量、维修内容不能为空", Toast.LENGTH_SHORT).show();
+			if("是".equals(inshi1)){
+				if(Check(smwxjl)||Check(JIEGUO)){
+					//||pinpai==null||pinpai==""||reading.get()==null||reading.get()==""||surplus.get()==null||surplus.get()==""
+					Toast.makeText(sa, "处理情况不能为空", Toast.LENGTH_SHORT).show();
 					return;
 				}
 			}
-			Thread th = new Thread(new Runnable() {
+			Thread th = new Thread(new Runnable(){
 				@Override
 				public void run() {
 					Message msg = new Message();
@@ -242,8 +252,9 @@ public class SlipActivity extends BindingActivity {
 						//servercheck_shul();
 						
 						// HttpGet getMethod = new HttpGet(Vault.PHONE_URL+"upload/"+CUCODE.get()+"/'"+smwxjl.get()+"'/"+ProduceTime()+"/"+pinpai+"/"+fangxiang+"/"+reading.get()+"/"+surplus.get()+"/"+status);						
-						HttpGet getMethod = new HttpGet(Vault.PHONE_URL+"upload/"+CUCODE.get().trim().replaceAll(" ", "%20")+"/'"+inshi1.trim().replaceAll(" ", "%20")+":"+smwxjl.get().trim().replaceAll("\n", "。").replaceAll(" ", "%20")+"'/"+ProduceTime().trim().replaceAll(" ", "%20")+"/"+pinpai.trim().replaceAll(" ", "%20")+"/"+fangxiang.trim().replaceAll(" ", "%20")+"/"+reading.get().trim().replaceAll(" ", "%20")+"/"+surplus.get().trim().replaceAll(" ", "%20")+"/"+status.trim().replaceAll(" ", "%20"));//+"/"+servercheck.trim().replaceAll(" ", "%20")+"/"+shul.trim().replaceAll(" ", "%20"));
+						HttpGet getMethod = new HttpGet(Vault.PHONE_URL+"upload/"+CUCODE.get().trim().replaceAll(" ", "%20")+"/'"+inshi1.trim().replaceAll(" ", "%20")+":"+smwxjl.get().trim().replaceAll("\n", "。").replaceAll(" ", "%20")+"'/"+":"+JIEGUO.get().trim().replaceAll("\n", "。").replaceAll(" ", "%20")+"'/"+ProduceTime().trim().replaceAll(" ", "%20")+"/"+status.trim().replaceAll(" ", "%20"));//+"/"+servercheck.trim().replaceAll(" ", "%20")+"/"+shul.trim().replaceAll(" ", "%20"));
 						HttpClient httpClient = new DefaultHttpClient();
+						//+pinpai.trim().replaceAll(" ", "%20")+"/"+fangxiang.trim().replaceAll(" ", "%20")+"/"+reading.get().trim().replaceAll(" ", "%20")+"/"+surplus.get().trim().replaceAll(" ", "%20")+"/"
 						HttpResponse response = httpClient.execute(getMethod);
 						int code = response.getStatusLine().getStatusCode();
 						if (code == 200) {// 若状态码为200
@@ -296,28 +307,30 @@ public class SlipActivity extends BindingActivity {
 			//servercheck_shul();
 			
 			String sql = "update T_BX_REPAIR_ALL set " +
-					"f_smwxjl=?," +//维修记录
-					"finishtime=?," +//维修时间
-					"f_gaswatchbrand=?," +//更换后气表品牌
-					"f_aroundmeter=?," +//左右表
-					"f_lastrecord=?," +//表读数
-					"surplus=?," +//补气量
-					"completion=?, " +//
-					"f_uploadstatus=?, " +//
-					"inshi=? " +//
+					"f_qingkuang=?," +//维修记录
+					"f_jieguo=?," +//维修记录
+				//	"finishtime=?," +//维修时间
+				//	"f_gaswatchbrand=?," +//更换后气表品牌
+					//"f_aroundmeter=?," +//左右表
+				//	"f_lastrecord=?," +//表读数
+				//	"surplus=?," +//补气量
+				//	"completion=?, " +//
+					"f_uploadstatus=? " +//
+				//	"inshi=? " +//
 					//"servercheck=?, " +//
 					//"shul=? " +//
 					"where f_cucode=?";
 			db = openOrCreateDatabase(Util.getDBName(this), Context.MODE_PRIVATE, null);
 			db.execSQL(sql, new String[]{smwxjl.get(),//维修记录
-										ProduceTime(),//维修时间
-										this.gas_meter_brand.get(((Spinner)findViewById(R.id.f_gas_meter_brand)).getSelectedItemPosition()),//气表品牌
-										this.rqbiaoxing.get(((Spinner)findViewById(R.id.f_rqbiaoxing)).getSelectedItemPosition()),//左右表
-										reading.get(),//表读数
-										surplus.get(),//补气量
-										this.completion.get(((Spinner)findViewById(R.id.f_completion)).getSelectedItemPosition()),//完成状态
+					                   JIEGUO.get(),//结果查询
+									//	ProduceTime(),//维修时间
+								//		this.gas_meter_brand.get(((Spinner)findViewById(R.id.f_gas_meter_brand)).getSelectedItemPosition()),//气表品牌
+								//		this.rqbiaoxing.get(((Spinner)findViewById(R.id.f_rqbiaoxing)).getSelectedItemPosition()),//左右表
+									//	reading.get(),//表读数
+										//surplus.get(),//补气量
+									//	this.completion.get(((Spinner)findViewById(R.id.f_completion)).getSelectedItemPosition()),//完成状态
 										this.f_uploadstatus.get(),//上传标记
-										this.inshi.get(((Spinner)findViewById(R.id.inshi)).getSelectedItemPosition()),//是否入户
+									//	this.inshi.get(((Spinner)findViewById(R.id.inshi)).getSelectedItemPosition()),//是否入户
 										//this.servercheck,//是否入户
 										//this.shul,//是否入户
 										CUCODE.get()});
@@ -432,75 +445,78 @@ public class SlipActivity extends BindingActivity {
 	/**
 	 * 根据参数填充列表
 	 */
-	private void FillBindingList() {
-		Object[] list = {this.gas_meter_brand};
-		String[] codes = {"气表品牌"};
-		SQLiteDatabase db = null;
-		try
-		{
-			db=openOrCreateDatabase(Util.getDBName(sa), Context.MODE_PRIVATE, null);
-			for(int i=0; i<codes.length; i++)
-			{
-				ArrayListObservable<String> olist = (ArrayListObservable<String>)list[i];
-				olist.clear();
-				olist.add("未入户");
-				olist.add("不确定");
-				String sql = "select NAME from T_PARAMS where code=? order by id";
-				Cursor c = db.rawQuery(sql, new String[] { codes[i] });
-				while(c.moveToNext())
-				{
-					olist.add(c.getString(0));
-				}
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			if(db != null)
-				db.close();
-		}	
-		
-	}
+//	private void FillBindingList() {
+//	//	Object[] list = {this.gas_meter_brand};
+//		String[] codes = {"气表品牌"};
+//		SQLiteDatabase db = null;
+//		try
+//		{
+//			db=openOrCreateDatabase(Util.getDBName(sa), Context.MODE_PRIVATE, null);
+//			for(int i=0; i<codes.length; i++)
+//			{
+//				ArrayListObservable<String> olist = (ArrayListObservable<String>)list[i];
+//				olist.clear();
+//				olist.add("未入户");
+//				olist.add("不确定");
+//				String sql = "select NAME from T_PARAMS where code=? order by id";
+//				Cursor c = db.rawQuery(sql, new String[] { codes[i] });
+//				while(c.moveToNext())
+//				{
+//					olist.add(c.getString(0));
+//				}
+//			}
+//		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
+//		finally
+//		{
+//			if(db != null)
+//				db.close();
+//		}	
+//		
+//	}
 	
 	private String ID;
-	public String USERID;//用户ID
+	//public String USERID;//用户ID
 	public StringObservable USERNAME = new StringObservable("");//用户姓名 
+	public StringObservable USERID = new StringObservable("");//用户姓名 
 	public StringObservable USERADDRESS = new StringObservable("");//用户地址 
 	public StringObservable GASUSERTYPE = new StringObservable("");//用户类别
+	public StringObservable CARDID = new StringObservable("");//用户类别
 	public StringObservable LINKTYPE = new StringObservable("");//用户电话
-	
+	public StringObservable LAIYUAN = new StringObservable("");//信息来源
 	public StringObservable SENDER = new StringObservable("");//派单人
 	public StringObservable CUCODE = new StringObservable("");//报修编号
 	public StringObservable REPAIRTYPE = new StringObservable("");//报修类型
 	public StringObservable PHONE = new StringObservable("");//来电号码
 	public StringObservable SENDTIME = new StringObservable("");//派单时间
-	public StringObservable REPAIRREASON = new StringObservable("");//来电内容
+	public StringObservable REPAIRREASON = new StringObservable("");//反映内容
 	public StringObservable STOPREMARK = new StringObservable("");//备注
-	
-	public StringObservable METERNUMBER = new StringObservable("");//表号
-	public StringObservable METERTYPE = new StringObservable("");//气表型号
-	public StringObservable LEFTRIGHTWATCH = new StringObservable("");//左右表
-	public StringObservable lastrecord = new StringObservable("");//表读数
-	public StringObservable metergasnums = new StringObservable("");//累计购气量
-	public StringObservable gasmeteraccomodations = new StringObservable("");//表底数
+	public StringObservable METERNUMBER = new StringObservable("");//备注
+	public StringObservable JIEDANDATE = new StringObservable("");//备注
+	public StringObservable JIEDANTIME = new StringObservable("");//备注
+	public StringObservable FUZEREN = new StringObservable("");//备注
+	public StringObservable WANGONGRIQI = new StringObservable("");//备注
+	public StringObservable WANGGONG = new StringObservable("");//备注
+//	public StringObservable METERNUMBER = new StringObservable("");//表号
+	//public StringObservable METERTYPE = new StringObservable("");//气表型号
+//	public StringObservable LEFTRIGHTWATCH = new StringObservable("");//左右表
+//	public StringObservable lastrecord = new StringObservable("");//表读数
+//	public StringObservable metergasnums = new StringObservable("");//累计购气量
+//	public StringObservable gasmeteraccomodations = new StringObservable("");//表底数
 	public StringObservable f_downloadstatus = new StringObservable("");//表底数
-	
 	public StringObservable smwxjl = new StringObservable("");//维修结果
-	
-	public ArrayListObservable<String> gas_meter_brand = new ArrayListObservable<String>(String.class);//气表品牌
-	public ArrayListObservable<String> rqbiaoxing = new ArrayListObservable<String>(String.class, new String[]{"左表", "右表"});//左右表
-	public ArrayListObservable<String> completion = new ArrayListObservable<String>(String.class, new String[]{"待完成", "已完成","未完成"});//完成情况
-	public StringObservable reading = new StringObservable("");//当前读数
-	public StringObservable surplus = new StringObservable("");//剩余气量
-	public ArrayListObservable<String> inshi = new ArrayListObservable<String>(String.class, new String[]{"入户", "未入户"});//完成情况
-	
-	public StringObservable f_workingdays = new StringObservable("");
-
+	public StringObservable JIEGUO = new StringObservable("");//维修结果
+	//public ArrayListObservable<String> gas_meter_brand = new ArrayListObservable<String>(String.class);//气表品牌
+//	public ArrayListObservable<String> rqbiaoxing = new ArrayListObservable<String>(String.class, new String[]{"左表", "右表"});//左右表
+	public ArrayListObservable<String> completion = new ArrayListObservable<String>(String.class, new String[]{"已完成","未完成"});//完成情况
+//	public StringObservable reading = new StringObservable("");//当前读数
+	//public StringObservable surplus = new StringObservable("");//剩余气量
+	public ArrayListObservable<String> inshi = new ArrayListObservable<String>(String.class, new String[]{"是", "否"});//完成情况
+	public StringObservable f_shixian = new StringObservable("");
 	public StringObservable f_uploadstatus = new StringObservable("false");
-	
 	/*  -   
 	public BooleanObservable f_openstopper = new BooleanObservable(false);
 	public BooleanObservable f_openfire = new BooleanObservable(false);

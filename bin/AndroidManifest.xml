@@ -12,6 +12,8 @@
   <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
   <!-- 电话权限 -->
   <uses-permission android:name="android.permission.CALL_PHONE"/>
   <!-- 授予网络访问权利 -->
@@ -44,6 +46,8 @@
    <activity android:name=".activity.showhisActivity" android:screenOrientation="portrait"></activity>
 	<!-- 提取数据服务 -->
    	<service android:name=".service.AlarmService"/>
+   <!-- 位置服务 -->
+   <service android:name=".service.GeoService"/> 
 </application>
 
 </manifest>

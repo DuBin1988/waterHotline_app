@@ -93,14 +93,14 @@ public class ShowhisRowModel {
 	public StringObservable gasmeteraccomodations = new StringObservable("");//表底数
 	public StringObservable f_downloadstatus = new StringObservable("");//表底数
 	public StringObservable f_workingdays = new StringObservable("");//表底数
-	public StringObservable finishtime = new StringObservable("");//完成时间
+	public StringObservable f_wangong = new StringObservable("");//完成时间
 	public StringObservable inshi = new StringObservable("");//是否入户
 	
 	public StringObservable smwxjl = new StringObservable("");//维修记录
 	
 	public String gaswatchbrand = "";//气表品牌
 	public String surplus = "";//补气量
-	public String completion = "";//完成状态
+	public String f_havacomplete = "";//完成状态
 	
 	public Command DetailCmd = new Command() {
 		@Override
@@ -132,13 +132,12 @@ public class ShowhisRowModel {
 //			bundle.putString("f_workingdays", f_workingdays.get());
 			
 			bundle.putString("smwxjl", smwxjl.get());
-			
 			bundle.putString("gaswatchbrand", gaswatchbrand);
 			bundle.putString("surplus", surplus);
-			bundle.putString("completion", completion);
+			bundle.putString("f_havacomplete", f_havacomplete);
 			bundle.putString("f_downloadstatus", f_downloadstatus.get());
 			bundle.putString("f_workingdays", f_workingdays.get());
-			bundle.putString("finishtime", finishtime.get());
+			bundle.putString("f_wangong", f_wangong.get());
 			bundle.putString("gdstatus", "ischeck"); //工单传入过去的状态
 			bundle.putString("inshi", inshi.get()); //是否入户
 			

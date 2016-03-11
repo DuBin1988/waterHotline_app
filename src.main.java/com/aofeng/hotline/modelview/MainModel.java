@@ -1,10 +1,7 @@
 package com.aofeng.hotline.modelview;
-
-
 import gueei.binding.Command;
 import gueei.binding.collections.ArrayListObservable;
 import gueei.binding.observables.IntegerObservable;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +23,7 @@ import com.aofeng.hotline.db.DBAdapter;
 import com.aofeng.hotline.model.RepairSlipRowModel;
 import com.aofeng.hotline.service.AlarmService;
 import com.aofeng.utils.Util;
+import com.aofeng.utils.Vault;
 
 public class MainModel {
 	public MainActivity mContext;
@@ -212,48 +210,55 @@ public class MainModel {
 		try
 		{
 			db = mContext.openOrCreateDatabase(Util.getDBName(mContext), Context.MODE_PRIVATE, null);
-			String sql = "select * from T_BX_REPAIR_ALL where (CAST(MUTE as INTEGER) &24)=0 and completion not in ('已完成','不具备通气') order by f_downloadstatus";
+			String sql = "select * from T_BX_REPAIR_ALL where  f_havacomplete not in ('已完成')";
+			//and f_jiedanren2=(select NAME  from t_user where ENAME= '" + Util.getSharedPreference(mContext, Vault.CHECKER_NAME) + "') "
 			Cursor c = db.rawQuery(sql, null);
 			int i=c.getCount();
 			while(c.moveToNext())
 			{
-				String s2=c.getString(c.getColumnIndex("completion"));
+				String s2=c.getString(c.getColumnIndex("f_havacomplete"));
 				RepairSlipRowModel model = new RepairSlipRowModel(this);
 				model.ID = c.getString(c.getColumnIndex("ID"));
 				model.setMute(c.getString(c.getColumnIndex("MUTE")));
-				model.USERID=c.getString(c.getColumnIndex("f_userid"));//用户ID
+				//model.USERID=c.getString(c.getColumnIndex("f_userid"));//用户ID
+				model.USERID.set(c.getString(c.getColumnIndex("f_userid")));//用户姓名
 				model.USERNAME.set(c.getString(c.getColumnIndex("f_username")));//用户姓名
 				model.USERADDRESS.set(c.getString(c.getColumnIndex("f_address")));//用户地址
-				model.GASUSERTYPE.set(c.getString(c.getColumnIndex("f_usertype")));//用户类别
+			    model.GASUSERTYPE.set(c.getString(c.getColumnIndex("f_quyu")));//用户类别
+			    model.CARDID.set(c.getString(c.getColumnIndex("f_cardid")));//用户类别
 				model.LINKTYPE.set(c.getString(c.getColumnIndex("f_linktype")));//用户电话
-				
 				model.SENDER.set(c.getString(c.getColumnIndex("f_sender")));//派单人
+				model.JIBIE.set(c.getString(c.getColumnIndex("f_jibie")));//工单级别
 				model.SENDTIME.set(c.getString(c.getColumnIndex("f_senddate"))+" "+c.getString(c.getColumnIndex("f_sendtime")));//派单时间
 				model.CUCODE.set(c.getString(c.getColumnIndex("f_cucode")));//报修编号
+				model.LAIYUAN.set(c.getString(c.getColumnIndex("f_laiyuan")));//报修编号
 				model.REPAIRTYPE.set(c.getString(c.getColumnIndex("f_repairtype")));//报修类型
 				model.PHONE.set(c.getString(c.getColumnIndex("f_phone")));//来电号码
 				model.REPAIRREASON.set(c.getString(c.getColumnIndex("f_repairreason")));//来电内容
-				model.STOPREMARK.set(c.getString(c.getColumnIndex("f_stopremark")));//备注
-				
-				model.METERNUMBER.set(c.getString(c.getColumnIndex("f_meternumber")));		//表号
-				model.METERTYPE.set(c.getString(c.getColumnIndex("f_metertype")));	//气表型号
-				model.LEFTRIGHTWATCH.set(c.getString(c.getColumnIndex("f_aroundmeter")));//左右表
-				model.lastrecord=c.getString(c.getColumnIndex("f_lastrecord"));	//表读数
-				model.metergasnums.set(c.getString(c.getColumnIndex("f_metergasnums")));	//累计购气量
-				model.gasmeteraccomodations.set(c.getString(c.getColumnIndex("f_gasmeteraccomodations")));	//表底数
-				
-				model.smwxjl.set(c.getString(c.getColumnIndex("f_smwxjl")));	//维修记录
-				
-				model.gaswatchbrand=c.getString(c.getColumnIndex("f_gaswatchbrand"));	//气表品牌
-				model.surplus=c.getString(c.getColumnIndex("surplus"));	//补气量
-				model.completion=c.getString(c.getColumnIndex("completion"));	//完成状态
+				model.STOPREMARK.set(c.getString(c.getColumnIndex("f_dealonline")));//备注
+				model.METERNUMBER.set(c.getString(c.getColumnIndex("f_meternumber")));//备注
+				model.JIEDANDATE.set(c.getString(c.getColumnIndex("f_jiedandate")));//备注
+				model.JIEDANTIME.set(c.getString(c.getColumnIndex("f_jiedan2")));//备注
+				model.FUZEREN.set(c.getString(c.getColumnIndex("f_fuzeren")));//备注
+				model.WANGONGRIQI.set(c.getString(c.getColumnIndex("f_wangongdate")));//备注
+				model.WANGGONG.set(c.getString(c.getColumnIndex("f_wangong")));//备注
+		//		model.METERNUMBER.set(c.getString(c.getColumnIndex("f_meternumber")));		//表号
+			//	model.METERTYPE.set(c.getString(c.getColumnIndex("f_metertype")));	//气表型号
+			//	model.LEFTRIGHTWATCH.set(c.getString(c.getColumnIndex("f_aroundmeter")));//左右表
+			//	model.lastrecord=c.getString(c.getColumnIndex("f_lastrecord"));	//表读数
+			//	model.metergasnums.set(c.getString(c.getColumnIndex("f_metergasnums")));	//累计购气量
+			//	model.gasmeteraccomodations.set(c.getString(c.getColumnIndex("f_gasmeteraccomodations")));	//表底数
+				model.smwxjl.set(c.getString(c.getColumnIndex("f_qingkuang")));	//维修记录
+				model.JIEGUO.set(c.getString(c.getColumnIndex("f_jieguo")));	//维修记录
+			//	model.gaswatchbrand=c.getString(c.getColumnIndex("f_gaswatchbrand"));	//气表品牌
+			//	model.surplus=c.getString(c.getColumnIndex("surplus"));	//补气量
+				model.f_havacomplete=c.getString(c.getColumnIndex("f_havacomplete"));	//完成状态
 				model.f_downloadstatus.set(c.getString(c.getColumnIndex("f_downloadstatus")));	//工单状态
-				model.f_workingdays.set(c.getString(c.getColumnIndex("f_workingdays")));	//工单状态
+				model.f_shixian.set(c.getString(c.getColumnIndex("f_shixian")));	//工单状态
 				if("正常".equals(model.f_downloadstatus.get()))
 					model.gongdanstatus.set(true);
 				else
 					model.gongdanstatus.set(false);
-				
 				lstRepairs.add(model);
 			}
 		}catch(Exception e){

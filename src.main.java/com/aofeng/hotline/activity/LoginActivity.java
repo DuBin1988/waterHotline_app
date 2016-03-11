@@ -33,8 +33,11 @@ public class LoginActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		// 设置登录按钮可用
-		((Button) findViewById(R.id.button1)).setEnabled(true);
-
+		try{
+		((Button) findViewById(R.id.buttons)).setEnabled(true);
+		}catch(Exception e){
+			System.out.println("1111");
+		}
 		// 填充用户信息
 		SharedPreferences sp = getSharedPreferences(Vault.appID,LoginModel.SAFE_CHECK_MODEL);
 		if(sp.getString(Vault.USER_NAME, "").length()>0)

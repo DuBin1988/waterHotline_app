@@ -34,7 +34,7 @@ import com.aofeng.utils.Vault;
 public class SetupModel {
 	private BaseSetupActivity mContext;
 
-	public SetupModel(BaseSetupActivity context) {
+	public SetupModel(BaseSetupActivity context){
 		this.mContext = context;
 		UseName.set(Util.getSharedPreference(mContext, Vault.USER_NAME));
 	}
@@ -563,7 +563,8 @@ private void createTables(SQLiteDatabase db) {
 				//用户信息
 				+  ",f_userid TEXT(20)"					//用户编号
 				+  ",f_username TEXT(50)"				//用户姓名
-				+  ",f_usertype TEXT(50)"				//用户类别
+				+  ",f_quyu TEXT(50)"				//用户类别f_cardid
+				+  ",f_cardid TEXT(50)"				//用户卡号
 				+  ",f_address TEXT(80)"				//用户地址
 				+  ",f_linktype TEXT(20)"				//用户电话
 				+  ",f_unitname TEXT(50)"				//用户单位
@@ -571,31 +572,40 @@ private void createTables(SQLiteDatabase db) {
 				+  ",f_sender TEXT(50)"					//派单人
 				+  ",f_senddate TEXT(20)"				//派单日期
 				+  ",f_sendtime TEXT(20)"				//派单时间
+				+  ",f_jibie TEXT(20)"				//工单级别
 				+  ",f_cucode TEXT(20)"					//报修编号
+				+  ",f_laiyuan TEXT(20)"					//信息来源
 				+  ",f_repairtype TEXT(40)"				//报修类型
 				+  ",f_phone TEXT(20)"					//来电电话
-				+  ",f_repairreason TEXT(200)"			//来电内容（来电使所记录的故障）
-				+  ",f_stopremark TEXT(200)"			//备注
-				//气表信息
-				+  ",f_meternumber TEXT(20)"			//表号
-				+  ",f_gasmeteraccomodations TEXT(20)"	//表底数
-				+  ",f_lastrecord TEXT(20)"				//表读数
-				+  ",f_metertype TEXT(50)"				//气表型号
-				+  ",f_aroundmeter TEXT(20)"			//左右表
-				+  ",f_metergasnums TEXT(20)"			//累计购气量
+				+  ",f_repairreason TEXT(200)"			//反映内容（来电使所记录的故障）
+				+  ",f_meternumber TEXT(200)"			//反映内容（来电使所记录的故障）
+				+  ",f_dealonline TEXT(200)"			//备注
+				+  ",f_jiedandate TEXT(200)"			//接单时期
+				+  ",f_jiedan2 TEXT(200)"			//接单时期
+				+  ",f_fuzeren TEXT(200)"			//接单时期
+				+  ",f_wangongdate TEXT(200)"			//接单时期
+				+  ",f_wangong TEXT(200)"			//接单时期
+//				//气表信息
+//				+  ",f_meternumber TEXT(20)"			//表号
+//				+  ",f_gasmeteraccomodations TEXT(20)"	//表底数
+//				+  ",f_lastrecord TEXT(20)"				//表读数
+//				+  ",f_metertype TEXT(50)"				//气表型号
+//				+  ",f_aroundmeter TEXT(20)"			//左右表
+//				+  ",f_metergasnums TEXT(20)"			//累计购气量
 				//程序辅助字段
 				+  ",MUTE TEXT(10)"						//是否选择静音
-				+  ",finishtime TEXT(30)"//完成时间
-				+  ",completion TEXT(10) default '未完成'"//完成情况
-				+  ",f_gaswatchbrand TEXT(40) null"//气表品牌
-				+  ",surplus TEXT(20) default '0'"//补气量
-				+  ",f_smwxjl TEXT(200)"//上门维修记录
-				+  ",f_downloadstatus TEXT(200)"// 工单状态
+			//	+  ",f_wangong TEXT(30)"//完成时间
+				+  ",f_havacomplete TEXT(10) default '未完成'"//完成情况
+			//	+  ",f_gaswatchbrand TEXT(40) null"//气表品牌
+			//	+  ",surplus TEXT(20) default '0'"//补气量
+				+  ",f_qingkuang TEXT(200)" //上门维修记录
+				+  ",f_jieguo TEXT(200)" //上门维修记录
+				+  ",f_downloadstatus TEXT(200)" // 工单状态
 				+  ",inshi TEXT(200)"//上门维修记录
 				+  ",f_uploadstatus TEXT(200)"//上传标记
 				//+  ",servercheck TEXT(200)"//上门维修记录
 				//+  ",shul TEXT(200)"//上门维修记录
-				+  ",f_workingdays TEXT(200)"// 工作时日
+				+  ",f_shixian TEXT(200)"// 工作时日
 				+  ",f_qdstatus TEXT(200)"//抢单标记
 				//结束
 				+  ")";

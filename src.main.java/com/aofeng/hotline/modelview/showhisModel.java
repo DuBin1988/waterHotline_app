@@ -215,19 +215,19 @@ public class showhisModel {
 		try
 		{
 			db = mContext.openOrCreateDatabase(Util.getDBName(mContext), Context.MODE_PRIVATE, null);
-			String sql = "select * from T_BX_REPAIR_ALL where (CAST(MUTE as INTEGER) &24)=0 and completion in ('已完成','不具备通气') order by f_cucode desc";
+			String sql = "select * from T_BX_REPAIR_ALL where (CAST(MUTE as INTEGER) &24)=0 and f_havacomplete in ('已完成','不具备通气') order by f_cucode desc";
 			Cursor c = db.rawQuery(sql, null);
 			int i=c.getCount();
 			while(c.moveToNext())
 			{
-				String s2=c.getString(c.getColumnIndex("completion"));
+				String s2=c.getString(c.getColumnIndex("f_havacomplete"));
 				ShowhisRowModel model = new ShowhisRowModel(this);
 				model.ID = c.getString(c.getColumnIndex("ID"));
 				model.setMute(c.getString(c.getColumnIndex("MUTE")));
 				model.USERID=c.getString(c.getColumnIndex("f_userid"));//用户ID
 				model.USERNAME.set(c.getString(c.getColumnIndex("f_username")));//用户姓名
 				model.USERADDRESS.set(c.getString(c.getColumnIndex("f_address")));//用户地址
-				model.GASUSERTYPE.set(c.getString(c.getColumnIndex("f_usertype")));//用户类别
+			//	model.GASUSERTYPE.set(c.getString(c.getColumnIndex("f_usertype")));//用户类别
 				model.LINKTYPE.set(c.getString(c.getColumnIndex("f_linktype")));//用户电话
 				
 				model.SENDER.set(c.getString(c.getColumnIndex("f_sender")));//派单人
@@ -236,7 +236,7 @@ public class showhisModel {
 				model.REPAIRTYPE.set(c.getString(c.getColumnIndex("f_repairtype")));//报修类型
 				model.PHONE.set(c.getString(c.getColumnIndex("f_phone")));//来电号码
 				model.REPAIRREASON.set(c.getString(c.getColumnIndex("f_repairreason")));//来电内容
-				model.STOPREMARK.set(c.getString(c.getColumnIndex("f_stopremark")));//备注
+				model.STOPREMARK.set(c.getString(c.getColumnIndex("f_dealonline")));//备注
 				
 				model.METERNUMBER.set(c.getString(c.getColumnIndex("f_meternumber")));		//表号
 				model.METERTYPE.set(c.getString(c.getColumnIndex("f_metertype")));	//气表型号
@@ -249,10 +249,10 @@ public class showhisModel {
 				
 				model.gaswatchbrand=c.getString(c.getColumnIndex("f_gaswatchbrand"));	//气表品牌
 				model.surplus=c.getString(c.getColumnIndex("surplus"));	//补气量
-				model.completion=c.getString(c.getColumnIndex("completion"));	//完成状态
+				model.f_havacomplete=c.getString(c.getColumnIndex("f_havacomplete"));	//完成状态
 				model.f_downloadstatus.set(c.getString(c.getColumnIndex("f_downloadstatus")));	//工单状态
 				model.f_workingdays.set(c.getString(c.getColumnIndex("f_workingdays")));	//工单状态
-				model.finishtime.set("   完成时间: "+c.getString(c.getColumnIndex("finishtime")));	//完成时间
+				model.f_wangong.set("   完成时间: "+c.getString(c.getColumnIndex("f_wangong")));	//完成时间
 				model.inshi.set(c.getString(c.getColumnIndex("inshi")));	//是否入户
 				
 				if("正常".equals(model.f_downloadstatus.get()))
