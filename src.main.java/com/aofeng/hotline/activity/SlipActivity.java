@@ -555,19 +555,35 @@ public class SlipActivity extends BindingActivity {
 //	}
 	
 	public Command call = new Command(){
+		String phone;
 		@Override
 		public void Invoke(android.view.View arg0, Object... arg1) {
-			String phone = PHONE.get().trim();
-			if(phone!=null&&!"".equals(phone)&&phone.matches("((\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$)")){
-				Uri uri=Uri.parse("tel:"+phone);  
-				Intent intent=new Intent();  
-				intent.setAction(Intent.ACTION_CALL);  
-				intent.setData(uri);  
-				SlipActivity.this.startActivity(intent);
-			}else{
-				Toast.makeText(sa, "号码格式不正确", Toast.LENGTH_SHORT).show();
+			String phones = PHONE.get().trim();
+			for (int i = 0;i < phones.length(); i++) {
+				if(phones.charAt(i)=='0'){
+					int j=phones.length();
+					int l=phones.indexOf("0");
+			     phone=phones.substring(l+1, j);
+			     if(phone!=null&&!"".equals(phone)&&phone.matches("((\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$)")){
+						Uri uri=Uri.parse("tel:"+phone);  
+						Intent intent=new Intent();  
+						intent.setAction(Intent.ACTION_CALL);  
+						intent.setData(uri);  
+						SlipActivity.this.startActivity(intent);
+					}
+				}
+				}
+			if(phones!=null&&!"".equals(phones)&&phones.matches("((\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$)")){
+						Uri uri=Uri.parse("tel:"+phones);  
+						Intent intent=new Intent();  
+						intent.setAction(Intent.ACTION_CALL);  
+						intent.setData(uri);  
+						SlipActivity.this.startActivity(intent);
+					}
+				    else{
+					Toast.makeText(sa, "号码格式不正确", Toast.LENGTH_SHORT).show();
+				}
 			}
-		}
 	};
 	
 }
