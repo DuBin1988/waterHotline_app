@@ -238,7 +238,7 @@ public class MainModel {
 				model.STOPREMARK.set(c.getString(c.getColumnIndex("f_dealonline")));//备注
 				model.METERNUMBER.set(c.getString(c.getColumnIndex("f_meternumber")));//备注
 				model.JIEDANDATE.set(c.getString(c.getColumnIndex("f_jiedandate")));//备注
-				model.JIEDANTIME.set(c.getString(c.getColumnIndex("f_jiedan2")));//备注
+				model.JIEDANTIME.set(c.getString(c.getColumnIndex("f_jiedantime")));//备注
 				model.FUZEREN.set(c.getString(c.getColumnIndex("f_fuzeren")));//备注
 				model.WANGONGRIQI.set(c.getString(c.getColumnIndex("f_wangongdate")));//备注
 				model.WANGGONG.set(c.getString(c.getColumnIndex("f_wangong")));//备注

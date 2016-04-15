@@ -580,7 +580,7 @@ private void createTables(SQLiteDatabase db) {
 				+  ",f_repairreason TEXT(200)"			//反映内容（来电使所记录的故障）
 				+  ",f_meternumber TEXT(200)"			//反映内容（来电使所记录的故障）
 				+  ",f_dealonline TEXT(200)"			//备注
-				+  ",f_jiedandate TEXT(200)"			//接单时期
+		//		+  ",f_jiedandate TEXT(200)"			//接单时期
 				+  ",f_jiedan2 TEXT(200)"			//接单时期
 				+  ",f_fuzeren TEXT(200)"			//接单时期
 				+  ",f_wangongdate TEXT(200)"			//接单时期
@@ -600,6 +600,8 @@ private void createTables(SQLiteDatabase db) {
 			//	+  ",surplus TEXT(20) default '0'"//补气量
 				+  ",f_qingkuang TEXT(200)" //上门维修记录
 				+  ",f_jieguo TEXT(200)" //上门维修记录
+				+  ",f_jiedandate TEXT(200)" //上门维修记录
+				+  ",f_jiedantime TEXT(200)" //上门维修记录
 				+  ",f_downloadstatus TEXT(200)" // 工单状态
 				+  ",inshi TEXT(200)"//上门维修记录
 				+  ",f_uploadstatus TEXT(200)"//上传标记

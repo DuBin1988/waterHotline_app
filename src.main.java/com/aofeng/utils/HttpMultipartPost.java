@@ -42,11 +42,11 @@ public class HttpMultipartPost extends
 	boolean validationPassed;
 	boolean needsValidation;
 
-	public HttpMultipartPost(Context context, boolean trueUpload, String validationURL, boolean needsValidation) {
+	public HttpMultipartPost(Context context) {
 		this.context = context;
-		this.trueUpload = trueUpload;
-		this.validationURL = validationURL;
-		this.needsValidation = needsValidation;
+//		this.trueUpload = trueUpload;
+//		this.validationURL = validationURL;
+//		this.needsValidation = needsValidation;
 	}
 
 	@Override
@@ -65,35 +65,35 @@ public class HttpMultipartPost extends
 
 	@Override
 	protected Boolean doInBackground(final String... fileNames) {
-		if(needsValidation)
-		{
-			try
-			{
-				HttpGet getMethod = new HttpGet(validationURL);
-				HttpClient httpClient = new DefaultHttpClient();
-				HttpResponse response = httpClient.execute(getMethod);
-				JSONObject obj = new JSONObject(EntityUtils.toString(response.getEntity(), "UTF8"));
-				if(obj.getString("ok").equals("ok"))
-					validationPassed = true;
-				else
-				{
-					errMsg = "请检查网络是否正常。";
-					if(obj.has("msg"))
-						errMsg = obj.getString("msg");
-					validationPassed =  false;
-				}
-			}
-			catch(Exception e)
-			{
-				errMsg = "请检查网络是否正常。";
-				validationPassed = false;
-			}
-			if(!trueUpload)
-				return validationPassed;
-			else
-				if(!validationPassed)
-					return validationPassed;
-		}
+//		if(needsValidation)
+//		{
+//			try
+//			{
+//				HttpGet getMethod = new HttpGet(validationURL);
+//				HttpClient httpClient = new DefaultHttpClient();
+//				HttpResponse response = httpClient.execute(getMethod);
+//				JSONObject obj = new JSONObject(EntityUtils.toString(response.getEntity(), "UTF8"));
+//				if(obj.getString("ok").equals("ok"))
+//					validationPassed = true;
+//				else
+//				{
+//					errMsg = "请检查网络是否正常。";
+//					if(obj.has("msg"))
+//						errMsg = obj.getString("msg");
+//					validationPassed =  false;
+//				}
+//			}
+//			catch(Exception e)
+//			{
+//				errMsg = "请检查网络是否正常。";
+//				validationPassed = false;
+//			}
+//			if(!trueUpload)
+//				return validationPassed;
+//			else
+//				if(!validationPassed)
+//					return validationPassed;
+//		}
 		
 		final int n = fileNames.length /3;
 		for (i = 0; i < fileNames.length-1; i = i + 3) {

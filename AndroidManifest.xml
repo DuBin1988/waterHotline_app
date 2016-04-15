@@ -40,7 +40,9 @@
     <activity android:name=".activity.SetupActivity" android:screenOrientation="portrait"></activity>
     <!-- 维修单显示界面 -->
     <activity android:name="com.aofeng.hotline.activity.SlipActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan|stateHidden"></activity>
-   <!-- 批量上传 -->
+   <!-- 拍照界面 -->
+   <activity android:name=".activity.ShootActivity" android:screenOrientation="landscape"></activity>
+    <!-- 批量上传 -->
    <activity android:name=".activity.UploadActivity" android:screenOrientation="portrait"></activity>
    <!-- 查看历史工单 -->
    <activity android:name=".activity.showhisActivity" android:screenOrientation="portrait"></activity>

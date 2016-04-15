@@ -906,8 +906,8 @@ public class IndoorInspectModel {
 			String validationURL = Vault.IIS_URL + "CAValidate/" + this.f_newmeter.get() + "/" + URLEncoder.encode(this.ROAD.get()).replace("+", "%20") 
 					+ "/" + URLEncoder.encode(this.UNIT_NAME.get()).replace("+", "%20") + "/" + URLEncoder.encode(this.CUS_DOM.get()).replace("+", "%20") + "/" + URLEncoder.encode(this.CUS_DY.get()).replace("+", "%20") + "/" + URLEncoder.encode(this.CUS_FLOOR.get()).replace("+", "%20")
 					+ "/" + URLEncoder.encode(this.CUS_ROOM.get()).replace("+", "%20") + "/" + Util.getSharedPreference(mContext, Vault.USER_ID) + "/" + URLEncoder.encode(Util.FormatDateToday("yyyy-MM-dd HH:mm:ss")).replace("+", "%20")  + "/" + this.f_jbdushu.get(); 
-				HttpMultipartPost poster = new HttpMultipartPost(mContext, trueUpload, validationURL, needsValidation);
-				poster.execute(imgs.toArray(new String[imgs.size()]));
+//				HttpMultipartPost poster = new HttpMultipartPost(mContext, trueUpload, validationURL, needsValidation);
+//				poster.execute(imgs.toArray(new String[imgs.size()]));
 	/*}*/
 	}
 	

@@ -1,5 +1,4 @@
 package com.aofeng.hotline.activity;
-
 import gueei.binding.Command;
 import gueei.binding.app.BindingActivity;
 import gueei.binding.collections.ArrayListObservable;
@@ -7,9 +6,11 @@ import gueei.binding.observables.BooleanObservable;
 import gueei.binding.observables.IntegerObservable;
 import gueei.binding.observables.StringObservable;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.http.HttpResponse;
@@ -20,25 +21,31 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.aofeng.hotline.R;
+import com.aofeng.utils.HttpMultipartPost;
 import com.aofeng.utils.Util;
 import com.aofeng.utils.Vault;
 
@@ -49,6 +56,18 @@ public class SlipActivity extends BindingActivity {
 	private String servercheck ="";
 	private Bundle bundle=null;
 	private String gdstatus=""; //判断是，工作，还是 查看工单
+	// ------------------------拍照------------------------------------
+	private Button shoot1;
+	private ImageView img1;
+	private Button shoot2;
+	private ImageView img2;
+	private Button shoot3;
+	private ImageView img3;
+	private Button shoot4;
+	private ImageView img4;
+	//保存临时生成的UUID
+	public String uuid;
+	public String paperId = "test";
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,8 +89,8 @@ public class SlipActivity extends BindingActivity {
 				final String inshi1=sa.inshi.get(((Spinner)findViewById(R.id.inshi)).getSelectedItemPosition());
 			//	surplus.set("0");
 			//	reading.set("0");
-				smwxjl.set("-");
-				JIEGUO.set("-");
+//				smwxjl.set("-");
+//				JIEGUO.set("-");
 			//	((Spinner)findViewById(R.id.f_rqbiaoxing)).setSelection(0);
 				((Spinner)findViewById(R.id.f_completion)).setSelection(1);
 				if("入户".equals(inshi1)){
@@ -89,6 +108,135 @@ public class SlipActivity extends BindingActivity {
 			public void onNothingSelected(AdapterView<?> arg0) {}
 
 		});
+		
+		uuid = Util.getSharedPreference(this, Vault.USER_ID) + "_" + paperId;
+		shoot1 = (Button) findViewById(R.id.shoot1);
+		shoot1.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent();
+				// 利用包袱传递参数给Activity
+				Bundle bundle = new Bundle();
+				bundle.putString("ID", uuid + "_1");
+				intent.setClass(SlipActivity.this, ShootActivity.class);
+				intent.putExtras(bundle);
+				startActivityForResult(intent, 1);
+			}
+		});
+		img1 = (ImageView) findViewById(R.id.image1);
+		shoot2 = (Button) findViewById(R.id.shoot2);
+		shoot2.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent();
+				// 利用包袱传递参数给Activity
+				Bundle bundle = new Bundle();
+				bundle.putString("ID", uuid + "_2");
+				intent.setClass(SlipActivity.this, ShootActivity.class);
+				intent.putExtras(bundle);
+				startActivityForResult(intent, 1);
+			}
+		});
+		img2 = (ImageView) findViewById(R.id.image2);
+		
+		shoot3 = (Button) findViewById(R.id.shoot3);
+		shoot3.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent();
+				// 利用包袱传递参数给Activity
+				Bundle bundle = new Bundle();
+				bundle.putString("ID", uuid + "_3");
+				intent.setClass(SlipActivity.this, ShootActivity.class);
+				intent.putExtras(bundle);
+				startActivityForResult(intent, 1);
+			}
+		});
+		img3 = (ImageView) findViewById(R.id.image3);
+		shoot4 = (Button) findViewById(R.id.shoot4);
+		shoot4.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent();
+				// 利用包袱传递参数给Activity
+				Bundle bundle = new Bundle();
+				bundle.putString("ID", uuid + "_4");
+				intent.setClass(SlipActivity.this, ShootActivity.class);
+				intent.putExtras(bundle);
+				startActivityForResult(intent, 1);
+			}
+		});
+		img4 = (ImageView) findViewById(R.id.image4);
+		Button clear1 = (Button) findViewById(R.id.clear1);
+		clear1.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				img1.setImageBitmap(null);
+
+				if (Util.fileExists(Util.getSharedPreference(SlipActivity.this, "FileDir") + uuid
+						+ "_1.jpg"))
+					new File(Util.getSharedPreference(SlipActivity.this, "FileDir") + uuid + "_"
+							+ "1.jpg").delete();
+			}
+		});
+		Button clear2 = (Button) findViewById(R.id.clear2);
+		clear2.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				img2.setImageBitmap(null);
+
+				if (Util.fileExists(Util.getSharedPreference(SlipActivity.this, "FileDir") + uuid
+						+ "_2.jpg"))
+					new File(Util.getSharedPreference(SlipActivity.this, "FileDir") + uuid + "_"
+							+ "2.jpg").delete();
+			}
+		});
+		Button clear3 = (Button) findViewById(R.id.clear3);
+		clear3.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				img3.setImageBitmap(null);
+
+				if (Util.fileExists(Util.getSharedPreference(SlipActivity.this, "FileDir") + uuid
+						+ "_3.jpg"))
+					new File(Util.getSharedPreference(SlipActivity.this, "FileDir") + uuid + "_"
+							+ "3.jpg").delete();
+			}
+		});
+		Button clear4 = (Button) findViewById(R.id.clear4);
+		clear4.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				img4.setImageBitmap(null);
+
+				if (Util.fileExists(Util.getSharedPreference(SlipActivity.this, "FileDir") + uuid
+						+ "_4.jpg"))
+					new File(Util.getSharedPreference(SlipActivity.this, "FileDir") + uuid + "_"
+							+ "4.jpg").delete();
+			}
+		});
+		
+		
+		OnClickListener imgZoom = new OnClickListener()
+		{
+			@Override
+			public void onClick(View v){		
+				int vid = v.getId();
+				if(vid == R.id.image1)
+					showZoomDialog(1);
+				else if(vid == R.id.image2)
+					showZoomDialog(2);
+				else if(vid == R.id.image3)
+					showZoomDialog(3);
+				else if(vid == R.id.image4)
+					showZoomDialog(4);
+			
+			}
+		};
+		img1.setOnClickListener(imgZoom);
+		img2.setOnClickListener(imgZoom);
+		img3.setOnClickListener(imgZoom);
+		img4.setOnClickListener(imgZoom);
 	}
 
 	
@@ -99,8 +247,47 @@ public class SlipActivity extends BindingActivity {
 		View(bundle);
 	}
 
+	//显示图片对话框
+	private void showZoomDialog(int  vid)
+	{
+		if (!Util.fileExists(Util.getSharedPreference(SlipActivity.this, "FileDir") + uuid + "_" + vid + ".jpg"))
+			return;
+		ImageView iv = new ImageView(this);
+		iv.layout(0, 0, 600, 400);
+		Bitmap bmp = Util.getLocalBitmap(Util.getSharedPreference(SlipActivity.this, "FileDir")
+				 + uuid + "_" + vid + ".jpg");
+		iv.setImageBitmap(bmp);
+		Dialog alertDialog = new AlertDialog.Builder(this).   
+				setView(iv).
+				setTitle("").   
+				setIcon(android.R.drawable.ic_dialog_info).
+				create();   
+		WindowManager.LayoutParams layoutParams = alertDialog.getWindow().getAttributes();  
+        layoutParams.width = 600;
+        layoutParams.height= 400;
+        alertDialog.getWindow().setAttributes(layoutParams);
+		alertDialog.show();
+	}
 
-
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode,Intent intent){
+		if (intent == null)
+			return;
+		String result = intent.getStringExtra("result");
+		Bitmap bmp;
+		if(!Util.fileExists(Util.getSharedPreference(SlipActivity.this, "FileDir") + result + ".jpg"))
+			return;
+		bmp = Util.getLocalBitmap(Util.getSharedPreference(SlipActivity.this, "FileDir") + result + ".jpg");
+		String idx = result.substring(result.length() - 1);
+		if (idx.equals("1"))
+			img1.setImageBitmap(bmp);
+		else if (idx.equals("2"))
+			img2.setImageBitmap(bmp);
+		else if (idx.equals("3"))
+			img3.setImageBitmap(bmp);
+		else if (idx.equals("4"))
+			img4.setImageBitmap(bmp);
+	}
 	@Override
 	public void onBackPressed() {
 		if(isBusy)
@@ -137,12 +324,14 @@ public class SlipActivity extends BindingActivity {
 		PHONE.set(bundle.getString("PHONE"));
 		STOPREMARK.set(bundle.getString("STOPREMARK"));
 		METERNUMBER.set(bundle.getString("METERNUMBER"));
-		JIEDANDATE.set(bundle.getString("JIEDANDATE"));
-		JIEDANTIME.set(bundle.getString("JIEDANTIME"));
-		FUZEREN.set(bundle.getString("FUZEREN"));
+		if(JIEDANDATE.get().length()==0){
+			JIEDANDATE.set(bundle.getString("JIEDANDATE"));
+			JIEDANTIME.set(bundle.getString("JIEDANTIME"));
+		}
+	//	FUZEREN.set(bundle.getString("FUZEREN"));
 		WANGONGRIQI.set(bundle.getString("WANGONGRIQI"));
 		WANGGONG.set(bundle.getString("WANGGONG"));
-		
+		FUZEREN.set(Util.getSharedPreference(SlipActivity.this, Vault.CHECKER_NAME) );
 	//	METERNUMBER.set(bundle.getString("METERNUMBER"));
 	//	METERTYPE.set(bundle.getString("METERTYPE"));
 	//	LEFTRIGHTWATCH.set(bundle.getString("LEFTRIGHTWATCH"));
@@ -236,13 +425,30 @@ public class SlipActivity extends BindingActivity {
 		//	final String fangxiang=sa.rqbiaoxing.get(((Spinner)findViewById(R.id.f_rqbiaoxing)).getSelectedItemPosition());
 			final String status=sa.completion.get(((Spinner)findViewById(R.id.f_completion)).getSelectedItemPosition());
 			final String inshi1=sa.inshi.get(((Spinner)findViewById(R.id.inshi)).getSelectedItemPosition());
+			if("已完成".equals(status)){
 			if("是".equals(inshi1)){
 				if(Check(smwxjl)||Check(JIEGUO)){
 					//||pinpai==null||pinpai==""||reading.get()==null||reading.get()==""||surplus.get()==null||surplus.get()==""
-					Toast.makeText(sa, "处理情况不能为空", Toast.LENGTH_SHORT).show();
+					Toast.makeText(sa, "处理情况和处理结果不能为空", Toast.LENGTH_SHORT).show();
 					return;
+				}	
+				}
+			}else {
+				Toast.makeText(sa, "请修改完成情况为已完成", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			// 找所有的图片
+			// 上传图片
+			ArrayList<String> imgs = new ArrayList<String>();
+			for (int i = 1; i < 5; i++) {
+				if (Util.fileExists(Util.getSharedPreference(SlipActivity.this, "FileDir") + SlipActivity.this.uuid + "_" + i + ".jpg")) {
+					imgs.add(Util.getSharedPreference(SlipActivity.this, "FileDir") + SlipActivity.this.uuid + "_" + i	+ ".jpg");
+					imgs.add("隐患照片" + i);
+					imgs.add(SlipActivity.this.uuid + "_" + i);
 				}
 			}
+			HttpMultipartPost poster = new HttpMultipartPost(SlipActivity.this);
+			poster.execute(imgs.toArray(new String[imgs.size()]));
 			Thread th = new Thread(new Runnable(){
 				@Override
 				public void run() {
@@ -299,6 +505,7 @@ public class SlipActivity extends BindingActivity {
 			}
 		}
 	};
+	
 	private boolean localSave(){
 		SQLiteDatabase db = null;
 		Date d=new Date();
@@ -309,6 +516,8 @@ public class SlipActivity extends BindingActivity {
 			String sql = "update T_BX_REPAIR_ALL set " +
 					"f_qingkuang=?," +//维修记录
 					"f_jieguo=?," +//维修记录
+					"f_jiedandate=?,"+
+					"f_jiedantime=?,"+
 				//	"finishtime=?," +//维修时间
 				//	"f_gaswatchbrand=?," +//更换后气表品牌
 					//"f_aroundmeter=?," +//左右表
@@ -323,6 +532,8 @@ public class SlipActivity extends BindingActivity {
 			db = openOrCreateDatabase(Util.getDBName(this), Context.MODE_PRIVATE, null);
 			db.execSQL(sql, new String[]{smwxjl.get(),//维修记录
 					                   JIEGUO.get(),//结果查询
+					                  Date(JieDanDate().trim()),
+					                   JieDanTime().trim(),
 									//	ProduceTime(),//维修时间
 								//		this.gas_meter_brand.get(((Spinner)findViewById(R.id.f_gas_meter_brand)).getSelectedItemPosition()),//气表品牌
 								//		this.rqbiaoxing.get(((Spinner)findViewById(R.id.f_rqbiaoxing)).getSelectedItemPosition()),//左右表
@@ -371,7 +582,23 @@ public class SlipActivity extends BindingActivity {
 		Date d=new Date();
 		return sdf.format(d);
 	}
-	
+	private String JieDanDate(){
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		Date d=new Date();
+		return sdf.format(d);
+	}
+	private String JieDanTime(){
+		SimpleDateFormat sdf=new SimpleDateFormat("HH:mm:ss");
+		Date d=new Date();
+		return sdf.format(d);
+	}
+	private String Date(String time){
+		if(time.length()==0){
+			JieDanDate().trim();
+		}
+		return time;
+		
+	}
 	/**
 	 * 状态确认成功
 	 */

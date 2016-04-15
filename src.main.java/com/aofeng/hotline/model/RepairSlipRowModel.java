@@ -133,7 +133,7 @@ public class RepairSlipRowModel {
 			bundle.putString("METERNUMBER", METERNUMBER.get());
 			bundle.putString("JIEDANDATE", JIEDANDATE.get());
 			bundle.putString("JIEDANTIME", JIEDANTIME.get());
-			bundle.putString("FUZEREN",FUZEREN.get());
+		//	bundle.putString("FUZEREN",FUZEREN.get());
 			bundle.putString("WANGONGRIQI",WANGONGRIQI.get());
 			bundle.putString("WANGGONG",WANGGONG.get());
 	//		bundle.putString("METERNUMBER", METERNUMBER.get());
