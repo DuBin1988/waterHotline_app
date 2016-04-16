@@ -2,7 +2,10 @@ package com.aofeng.hotline.modelview;
 import gueei.binding.Command;
 import gueei.binding.collections.ArrayListObservable;
 import gueei.binding.observables.IntegerObservable;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -204,7 +207,10 @@ public class MainModel {
 		}
 		return result;
 	}
-	private void FillEmergencyModel() {
+	
+	
+	
+	private void FillEmergencyModel(){
 		lstRepairs.clear();
 		SQLiteDatabase db = null;
 		try

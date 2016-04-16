@@ -2,6 +2,8 @@ package com.aofeng.hotline.model;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -109,12 +111,18 @@ public class RepairSlipRowModel {
 	public String gaswatchbrand = "";//气表品牌
 	//public String surplus = "";//补气量
 	public String f_havacomplete = "";//完成状态
-	
+	 
 	public Command DetailCmd = new Command() {
+	
 		@Override
 		public void Invoke(View arg0, Object... arg1) {
 			Intent intent = new Intent();
-			Bundle bundle = new Bundle();
+			Bundle  bundle = new Bundle();
+			bundle.putString("JIEDANDATE", JIEDANDATE.get());
+			bundle.putString("JIEDANTIME", JIEDANTIME.get());
+			if(JIEDANDATE.get()==null){
+				  localSave();
+			}
 			bundle.putString("ID", ID);
 			bundle.putString("USERID", USERID.get());
 			bundle.putString("USERNAME", USERNAME.get());
@@ -131,8 +139,7 @@ public class RepairSlipRowModel {
 			bundle.putString("REPAIRREASON", REPAIRREASON.get());
 			bundle.putString("STOPREMARK", STOPREMARK.get());
 			bundle.putString("METERNUMBER", METERNUMBER.get());
-			bundle.putString("JIEDANDATE", JIEDANDATE.get());
-			bundle.putString("JIEDANTIME", JIEDANTIME.get());
+			
 		//	bundle.putString("FUZEREN",FUZEREN.get());
 			bundle.putString("WANGONGRIQI",WANGONGRIQI.get());
 			bundle.putString("WANGGONG",WANGGONG.get());
@@ -154,7 +161,6 @@ public class RepairSlipRowModel {
 			bundle.putString("f_downloadstatus", f_downloadstatus.get());
 			bundle.putString("f_shixian", f_shixian.get());
 			bundle.putString("gdstatus", "isdo"); //工单传入过去的状态
-			
 			setMute();//单条静音
 			intent.setClass(model.mContext, SlipActivity.class);
 			intent.putExtras(bundle);
@@ -191,6 +197,71 @@ public class RepairSlipRowModel {
 		}
 		
 	};
+	
+	
+
+
+	private String JieDanDate(){
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		Date d=new Date();
+		return sdf.format(d);
+	}
+	private String JieDanTime(){
+		SimpleDateFormat sdf=new SimpleDateFormat("HH:mm:ss");
+		Date d=new Date();
+		return sdf.format(d);
+	}
+	private boolean localSave(){
+		SQLiteDatabase db = null;
+		Date d=new Date();
+		try
+		{
+			String sql = "update T_BX_REPAIR_ALL set " +
+//					"f_qingkuang=?," +//维修记录
+//					"f_jieguo=?," +//维修记录
+					"f_jiedandate=?,"+
+					"f_jiedantime=?"+
+				//	"finishtime=?," +//维修时间
+				//	"f_gaswatchbrand=?," +//更换后气表品牌
+					//"f_aroundmeter=?," +//左右表
+				//	"f_lastrecord=?," +//表读数
+				//	"surplus=?," +//补气量
+				//	"completion=?, " +//
+//					"f_uploadstatus=? " +//
+				//	"inshi=? " +//
+					//"servercheck=?, " +//
+					//"shul=? " +//
+					"where f_cucode=?";
+			db = this.model.mContext.openOrCreateDatabase(Util.getDBName(this.model.mContext), Context.MODE_PRIVATE, null);
+			db.execSQL(sql, new String[]{
+//					                   smwxjl.get(),//维修记录
+//					                   JIEGUO.get(),//结果查询
+					                  JieDanDate().trim(),
+					                   JieDanTime().trim(),
+									//	ProduceTime(),//维修时间
+								//		this.gas_meter_brand.get(((Spinner)findViewById(R.id.f_gas_meter_brand)).getSelectedItemPosition()),//气表品牌
+								//		this.rqbiaoxing.get(((Spinner)findViewById(R.id.f_rqbiaoxing)).getSelectedItemPosition()),//左右表
+									//	reading.get(),//表读数
+										//surplus.get(),//补气量
+									//	this.completion.get(((Spinner)findViewById(R.id.f_completion)).getSelectedItemPosition()),//完成状态
+//										this.f_uploadstatus.get(),//上传标记
+									//	this.inshi.get(((Spinner)findViewById(R.id.inshi)).getSelectedItemPosition()),//是否入户
+										//this.servercheck,//是否入户
+										//this.shul,//是否入户
+										CUCODE.get()});
+
+			return true;
+		} catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}finally{
+			db.close();
+		}
+	}
+
+
+	
+	
 	private void setMute() {
 		SQLiteDatabase db = null;
 		try

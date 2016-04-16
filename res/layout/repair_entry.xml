@@ -174,7 +174,6 @@
                 android:id="@+id/textView6"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
                 android:text="工单级别"
                 android:textSize="12sp" />
 
@@ -185,7 +184,6 @@
                 android:enabled="false"
                 android:textSize="12sp"
                 binding:text="JIBIE" />
-
         </LinearLayout>
         
         <LinearLayout
@@ -222,7 +220,6 @@
                     binding:visibility="NOT(MUTED)" />
 
             </LinearLayout>
-            
             <Button
                     android:id="@+id/call"
                     android:layout_width="wrap_content"

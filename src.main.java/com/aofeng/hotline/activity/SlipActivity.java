@@ -324,7 +324,10 @@ public class SlipActivity extends BindingActivity {
 		PHONE.set(bundle.getString("PHONE"));
 		STOPREMARK.set(bundle.getString("STOPREMARK"));
 		METERNUMBER.set(bundle.getString("METERNUMBER"));
-		if(JIEDANDATE.get().length()==0){
+		if(bundle.getString("JIEDANDATE")==null){
+			JIEDANDATE.set(JieDanDate().trim());
+			JIEDANTIME.set(JieDanTime().trim());
+		}else{
 			JIEDANDATE.set(bundle.getString("JIEDANDATE"));
 			JIEDANTIME.set(bundle.getString("JIEDANTIME"));
 		}
@@ -454,21 +457,19 @@ public class SlipActivity extends BindingActivity {
 				public void run() {
 					Message msg = new Message();
 					try {
-						
 						//servercheck_shul();
-						
 						// HttpGet getMethod = new HttpGet(Vault.PHONE_URL+"upload/"+CUCODE.get()+"/'"+smwxjl.get()+"'/"+ProduceTime()+"/"+pinpai+"/"+fangxiang+"/"+reading.get()+"/"+surplus.get()+"/"+status);						
-						HttpGet getMethod = new HttpGet(Vault.PHONE_URL+"upload/"+CUCODE.get().trim().replaceAll(" ", "%20")+"/'"+inshi1.trim().replaceAll(" ", "%20")+":"+smwxjl.get().trim().replaceAll("\n", "。").replaceAll(" ", "%20")+"'/"+":"+JIEGUO.get().trim().replaceAll("\n", "。").replaceAll(" ", "%20")+"'/"+ProduceTime().trim().replaceAll(" ", "%20")+"/"+status.trim().replaceAll(" ", "%20"));//+"/"+servercheck.trim().replaceAll(" ", "%20")+"/"+shul.trim().replaceAll(" ", "%20"));
+						HttpGet getMethod = new HttpGet(Vault.PHONE_URL+"upload/"+CUCODE.get().trim().replaceAll(" ", "%20")+"/'"+inshi1.trim().replaceAll(" ", "%20")+":"+smwxjl.get().trim().replaceAll("\n", "。").replaceAll(" ", "%20")+"'/"+":"+JIEGUO.get().trim().replaceAll("\n", "。").replaceAll(" ", "%20")+"'/"+ProduceTime().trim().replaceAll(" ", "%20")+"/"+status.trim().replaceAll(" ", "%20")+"'/"+JIEDANDATE.get().replaceAll(" ", "%20")+"'/"+JIEDANTIME.get().replaceAll(" ", "%20"));//+"/"+servercheck.trim().replaceAll(" ", "%20")+"/"+shul.trim().replaceAll(" ", "%20"));
 						HttpClient httpClient = new DefaultHttpClient();
 						//+pinpai.trim().replaceAll(" ", "%20")+"/"+fangxiang.trim().replaceAll(" ", "%20")+"/"+reading.get().trim().replaceAll(" ", "%20")+"/"+surplus.get().trim().replaceAll(" ", "%20")+"/"
 						HttpResponse response = httpClient.execute(getMethod);
 						int code = response.getStatusLine().getStatusCode();
-						if (code == 200) {// 若状态码为200
+						if (code == 200){// 若状态码为200
 							msg.what = 1;
 						} else {
 							msg.what = 0;
 						}
-					} catch (IOException e) {
+					} catch (IOException e){
 						e.printStackTrace();
 						msg.what = 0;
 					}finally{
@@ -516,8 +517,8 @@ public class SlipActivity extends BindingActivity {
 			String sql = "update T_BX_REPAIR_ALL set " +
 					"f_qingkuang=?," +//维修记录
 					"f_jieguo=?," +//维修记录
-					"f_jiedandate=?,"+
-					"f_jiedantime=?,"+
+//					"f_jiedandate=?,"+
+//					"f_jiedantime=?,"+
 				//	"finishtime=?," +//维修时间
 				//	"f_gaswatchbrand=?," +//更换后气表品牌
 					//"f_aroundmeter=?," +//左右表
@@ -532,8 +533,8 @@ public class SlipActivity extends BindingActivity {
 			db = openOrCreateDatabase(Util.getDBName(this), Context.MODE_PRIVATE, null);
 			db.execSQL(sql, new String[]{smwxjl.get(),//维修记录
 					                   JIEGUO.get(),//结果查询
-					                  Date(JieDanDate().trim()),
-					                   JieDanTime().trim(),
+//					                  JieDanDate().trim(),
+//					                   JieDanTime().trim(),
 									//	ProduceTime(),//维修时间
 								//		this.gas_meter_brand.get(((Spinner)findViewById(R.id.f_gas_meter_brand)).getSelectedItemPosition()),//气表品牌
 								//		this.rqbiaoxing.get(((Spinner)findViewById(R.id.f_rqbiaoxing)).getSelectedItemPosition()),//左右表
@@ -592,13 +593,13 @@ public class SlipActivity extends BindingActivity {
 		Date d=new Date();
 		return sdf.format(d);
 	}
-	private String Date(String time){
-		if(time.length()==0){
-			JieDanDate().trim();
-		}
-		return time;
-		
-	}
+//	private String Date(String time){
+//		if(time.length()==0){
+//			JieDanDate().trim();
+//		}
+//		return time;
+//		
+//	}
 	/**
 	 * 状态确认成功
 	 */
