@@ -74,6 +74,7 @@ public class RepairSlipRowModel {
 	
 	//public String USERID;//用户ID
 	public StringObservable USERNAME = new StringObservable("");//用户姓名 
+	public StringObservable REPAIRID = new StringObservable("");//单子编号
 	public StringObservable USERADDRESS = new StringObservable("");//用户地址 
 	public StringObservable GASUSERTYPE = new StringObservable("");//用户类别
 	public StringObservable CARDID = new StringObservable("");//用户类别
@@ -125,6 +126,7 @@ public class RepairSlipRowModel {
 			}
 			bundle.putString("ID", ID);
 			bundle.putString("USERID", USERID.get());
+			bundle.putString("REPAIRID", REPAIRID.get());
 			bundle.putString("USERNAME", USERNAME.get());
 			bundle.putString("USERADDRESS", USERADDRESS.get());
 			bundle.putString("GASUSERTYPE", GASUSERTYPE.get());

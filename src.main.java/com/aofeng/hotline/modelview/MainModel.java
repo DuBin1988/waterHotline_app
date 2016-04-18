@@ -224,6 +224,7 @@ public class MainModel {
 			{
 				String s2=c.getString(c.getColumnIndex("f_havacomplete"));
 				RepairSlipRowModel model = new RepairSlipRowModel(this);
+				model.REPAIRID.set(c.getString(c.getColumnIndex("f_repairid")));
 				model.ID = c.getString(c.getColumnIndex("ID"));
 				model.setMute(c.getString(c.getColumnIndex("MUTE")));
 				//model.USERID=c.getString(c.getColumnIndex("f_userid"));//ÓÃ»§ID

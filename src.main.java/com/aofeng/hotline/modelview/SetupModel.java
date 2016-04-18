@@ -561,6 +561,7 @@ private void createTables(SQLiteDatabase db) {
 		db.execSQL("DROP TABLE IF EXISTS T_BX_REPAIR_ALL");
 		sql = "CREATE TABLE T_BX_REPAIR_ALL (ID integer primary key autoincrement"//维修记录id自增唯一
 				//用户信息
+				+  ",f_repairid TEXT(20)"					//单子编号
 				+  ",f_userid TEXT(20)"					//用户编号
 				+  ",f_username TEXT(50)"				//用户姓名
 				+  ",f_quyu TEXT(50)"				//用户类别f_cardid

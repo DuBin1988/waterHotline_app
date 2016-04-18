@@ -310,6 +310,7 @@ public class SlipActivity extends BindingActivity {
 	private void View(Bundle bundle) {
 		ID=bundle.getString("ID");
 		USERID.set(bundle.getString("USERID"));
+		REPAIRID.set(bundle.getString("REPAIRID"));
 		USERNAME.set(bundle.getString("USERNAME"));
 		USERADDRESS.set(bundle.getString("USERADDRESS"));
 		GASUSERTYPE.set(bundle.getString("GASUSERTYPE"));
@@ -459,7 +460,7 @@ public class SlipActivity extends BindingActivity {
 					try {
 						//servercheck_shul();
 						// HttpGet getMethod = new HttpGet(Vault.PHONE_URL+"upload/"+CUCODE.get()+"/'"+smwxjl.get()+"'/"+ProduceTime()+"/"+pinpai+"/"+fangxiang+"/"+reading.get()+"/"+surplus.get()+"/"+status);						
-						HttpGet getMethod = new HttpGet(Vault.PHONE_URL+"upload/"+CUCODE.get().trim().replaceAll(" ", "%20")+"/'"+inshi1.trim().replaceAll(" ", "%20")+":"+smwxjl.get().trim().replaceAll("\n", "。").replaceAll(" ", "%20")+"'/"+":"+JIEGUO.get().trim().replaceAll("\n", "。").replaceAll(" ", "%20")+"'/"+ProduceTime().trim().replaceAll(" ", "%20")+"/"+status.trim().replaceAll(" ", "%20")+"'/"+JIEDANDATE.get().replaceAll(" ", "%20")+"'/"+JIEDANTIME.get().replaceAll(" ", "%20"));//+"/"+servercheck.trim().replaceAll(" ", "%20")+"/"+shul.trim().replaceAll(" ", "%20"));
+						HttpGet getMethod = new HttpGet(Vault.PHONE_URL+"upload/"+REPAIRID.get().trim().replaceAll(" ", "%20")+"/'"+inshi1.trim().replaceAll(" ", "%20")+":"+smwxjl.get().trim().replaceAll("\n", "。").replaceAll(" ", "%20")+"'/"+":"+JIEGUO.get().trim().replaceAll("\n", "。").replaceAll(" ", "%20")+"'/"+ProduceTime().trim().replaceAll(" ", "%20")+"/"+status.trim().replaceAll(" ", "%20")+"'/"+JIEDANDATE.get().replaceAll(" ", "%20")+"'/"+JIEDANTIME.get().replaceAll(" ", "%20"));//+"/"+servercheck.trim().replaceAll(" ", "%20")+"/"+shul.trim().replaceAll(" ", "%20"));
 						HttpClient httpClient = new DefaultHttpClient();
 						//+pinpai.trim().replaceAll(" ", "%20")+"/"+fangxiang.trim().replaceAll(" ", "%20")+"/"+reading.get().trim().replaceAll(" ", "%20")+"/"+surplus.get().trim().replaceAll(" ", "%20")+"/"
 						HttpResponse response = httpClient.execute(getMethod);
@@ -709,6 +710,7 @@ public class SlipActivity extends BindingActivity {
 	private String ID;
 	//public String USERID;//用户ID
 	public StringObservable USERNAME = new StringObservable("");//用户姓名 
+	public StringObservable REPAIRID = new StringObservable("");//用户姓名 
 	public StringObservable USERID = new StringObservable("");//用户姓名 
 	public StringObservable USERADDRESS = new StringObservable("");//用户地址 
 	public StringObservable GASUSERTYPE = new StringObservable("");//用户类别

@@ -106,12 +106,12 @@ public class Vault {
 //	public static String  PHONE_URL = "http://192.168.10.116:8080/rs/phone/";//96777
 
 //测试环境
-	public static  String downloadURL = "http://192.168.1.124:8080/safecheck.apk";
-	public static  String checkVersionURL = "http://192.168.1.124:8080/rs/db/one/from%20t_singlevalue%20where%20name='hotline版本号'";
-	public static String  DB_URL = "http://192.168.1.124:8080/rs/db/";//数据服务地址
-	public static String  IIS_URL = "http://192.168.1.124:8080/rs/wx/";//入户安检服务
-	public static String  PHONE_URL = "http://192.168.1.124:8080/rs/phone/";//96777
-	public static String AUTH_URL = "http://192.168.1.124:82/rs/user/";
+	public static  String downloadURL = "http://192.168.1.121:8080/safecheck.apk";
+	public static  String checkVersionURL = "http://192.168.1.121:8080/rs/db/one/from%20t_singlevalue%20where%20name='hotline版本号'";
+	public static String  DB_URL = "http://192.168.1.121:8080/rs/db/";//数据服务地址
+	public static String  IIS_URL = "http://192.168.1.121:8080/rs/wx/";//入户安检服务
+	public static String  PHONE_URL = "http://192.168.1.121:8080/rs/phone/";//96777
+	public static String AUTH_URL = "http://192.168.1.121:82/rs/user/";
 	/*	*/
 	//正式环境
 	/*	public static  String downloadURL = "http://183.196.91.66:8080/hotline/shexianhotline.apk";
